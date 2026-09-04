@@ -1,0 +1,5 @@
+# Préproduction GitHub Pages — ne pas indexer.
+# À remplacer par un robots.txt de production lors de la mise en ligne
+# sur le domaine définitif (voir STAGING dans build/build.py).
+User-agent: *
+Disallow: /
