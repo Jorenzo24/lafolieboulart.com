@@ -438,9 +438,18 @@ def showcase(row2, row3, carousel_imgs=None, crest=True):
 </div>'''
 
 
-def split(col1, col2):
-    """Deux colonnes à parts égales, comme les sections d'origine."""
-    return f'''<div class="split">
+def split(col1, col2, middle=False, ratio=None):
+    """Deux colonnes, comme les sections d'origine.
+
+    middle : centrage vertical (align-items:center dans le CSS source).
+    ratio  : '45-55' pour la section Réceptions.
+    """
+    cls = 'split'
+    if middle:
+        cls += ' split--middle'
+    if ratio:
+        cls += f' split--{ratio}'
+    return f'''<div class="{cls}">
   <div class="split__col reveal">{col1}</div>
   <div class="split__col reveal reveal-d1">{col2}</div>
 </div>'''

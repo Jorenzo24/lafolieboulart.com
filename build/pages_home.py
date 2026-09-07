@@ -18,8 +18,8 @@ def build():
     portrait_img, portrait_alt = IM(P, 85)
 
     # --- galeries : rangée de 2 (1024x558) puis rangée de 3 (1024x683) ---
+    # « Nos Suites » : l'original n'affiche que la rangée de 2 puis le carrousel.
     suites_2 = [IM(P, 25), IM(P, 26)]
-    suites_3 = [IM(P, 27), IM(P, 28), IM(P, 29)]
     suites_carousel = [IM(P, i) for i in (31, 32, 33, 34, 35, 36, 37, 38)]
 
     spa_2 = [IM(P, 50), IM(P, 51)]
@@ -46,7 +46,7 @@ def build():
 </section>
 
 <section class="section section--intro">
-  <div class="wrap-wide">
+  <div class="wrap-1140">
     <div class="intro reveal">
       <img class="intro__logo" src="{img_src('boulart-or-aplat-exe-2-1024x636.png')}" alt="La Folie Boulart — Biarritz 1881" width="1024" height="636">
       <h1 class="intro__title">{lines(T(P, 0))}</h1>
@@ -57,22 +57,22 @@ def build():
 </section>
 
 <section class="section">
-  <div class="wrap-wide">
+  <div class="wrap-1300">
     {split(
         picture(palais_img, palais_alt),
         f"""{title(T(P, 5), 'start')}
       <div class="prose">{paras(T(P, 6))}{paras(T(P, 7))}</div>
-      {btn_row(btn(url(A(P, 8)), T(P, 9)), 'start')}""")}
+      {btn_row(btn(url(A(P, 8)), T(P, 9)), 'start')}""", middle=True)}
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap-wide">
+<section class="section section--gap-sm">
+  <div class="wrap-1300">
     {split(
         f"""{title(T(P, 10), 'end')}
       <div class="prose">{paras(T(P, 11))}{paras(T(P, 12))}{paras(T(P, 13))}</div>
       {btn_row(btn(url(A(P, 14)), T(P, 15)), 'end')}""",
-        picture(entree_img, entree_alt))}
+        picture(entree_img, entree_alt), middle=True)}
   </div>
 </section>
 
@@ -85,7 +85,7 @@ def build():
       <p style="margin-top:1.75rem">{btn(url(A(P, 21)), T(P, 22))}</p>
     </div>
   </div>
-  {showcase(suites_2, suites_3, suites_carousel)}
+  {showcase(suites_2, None, suites_carousel)}
 </section>
 
 <section class="banner">
@@ -109,8 +109,8 @@ def build():
   {showcase(spa_2, spa_3)}
 </section>
 
-<section class="section">
-  <div class="wrap-wide">
+<section class="section section--gap-sm">
+  <div class="wrap-1140">
     {split(
         f"""{title(T(P, 55), 'start')}
       <div class="prose">{paras(T(P, 56))}</div>
@@ -124,39 +124,39 @@ def build():
 </section>
 
 <section class="section">
-  <div class="wrap-wide">
+  <div class="wrap-1140">
     {split(
         f"""{title(T(P, 65), 'end')}
       <div class="prose">{paras(T(P, 66))}</div>
       {btn_row(btn(url(A(P, 67)), T(P, 68)), 'end')}""",
-        vimeo('868256643', 'Visite 3D de La Folie Boulart'))}
+        vimeo('868256643', 'Visite 3D de La Folie Boulart'), middle=True, ratio='45-55')}
   </div>
   {showcase(rec_2, rec_3)}
 </section>
 
-<section class="section">
-  <div class="wrap-wide">
+<section class="section section--gap-lg">
+  <div class="wrap-1300">
     {split(
         picture(*colonnes),
         f"""{title(T(P, 76), 'start')}
       <div class="prose">{paras(T(P, 77))}</div>
-      {btn_row(btn(url(A(P, 78)), T(P, 79)), 'start')}""")}
+      {btn_row(btn(url(A(P, 78)), T(P, 79)), 'start')}""", middle=True)}
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap-wide">
+<section class="section section--gap-sm">
+  <div class="wrap-1300">
     {split(
         f"""{title(T(P, 80), 'end', ink=True)}
       <div class="prose">{paras(T(P, 81))}</div>
       {btn_row(btn(url(A(P, 82)), T(P, 83)), 'end')}""",
-        picture(baigneuses_img, baigneuses_alt))}
+        picture(baigneuses_img, baigneuses_alt), middle=True)}
   </div>
 </section>
 
 <section class="section">
-  <div class="wrap-wide">
-    <div class="split owners">
+  <div class="wrap-1140">
+    <div class="split split--middle owners">
       <div class="split__col reveal">
         <img class="owners__portrait" src="{portrait_img}" alt="{e(portrait_alt)}" loading="lazy" decoding="async">
       </div>
