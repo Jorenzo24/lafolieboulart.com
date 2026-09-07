@@ -231,38 +231,47 @@ def nav_media():
 
 
 FOOTER = f'''<footer class="footer">
-  <div class="wrap-wide">
-    <div class="footer__top">
-      <div class="footer__logo">
-        <img src="{LOGO_WHITE}" alt="La Folie Boulart 1881" width="1245" height="848" loading="lazy">
-      </div>
+  <div class="footer__logo">
+    <img src="{LOGO_WHITE}" alt="La Folie Boulart 1881" width="1245" height="848" loading="lazy">
+  </div>
+  <div class="footer__rule footer__rule--top" aria-hidden="true"></div>
+
+  <div class="footer__cols">
+    <div class="footer__mark">
+      <img src="{img_src('logo-monument-historique.png')}" alt="Monument historique — Biarritz" loading="lazy">
+    </div>
+    <nav aria-label="Liens du pied de page">
       <ul class="footer__nav">
         <li><a href="{EXTERNAL}contact/">Contact</a></li>
         <li><a href="{EXTERNAL}informations/">Informations</a></li>
         <li><a href="{EXTERNAL}blog/">Blog</a></li>
         <li><a href="{EXTERNAL}galerie/">Galerie</a></li>
       </ul>
-      <div class="footer__marks">
-        <img src="{img_src('logo-monument-historique.png')}" alt="Monument historique — Biarritz" loading="lazy">
-        <div class="footer__social">
-          <a href="https://www.instagram.com/lafolieboulart/" aria-label="Instagram" rel="noopener" target="_blank">
-            <img src="{img_src('ig-icon-1.png')}" alt="" loading="lazy">
-          </a>
-          <a href="https://www.youtube.com/channel/UC5Mew3mgAWNC7L8HnJZfQiA/featured" aria-label="YouTube" rel="noopener" target="_blank">
-            <img src="{img_src('yt.png')}" alt="" loading="lazy">
-          </a>
-        </div>
-      </div>
-    </div>
-    <p class="footer__contact">
-      <a href="tel:+33559239310">+33 5 59 23 93 10</a> – 12, Allée du Château, 64200, Biarritz
-    </p>
-    <div class="footer__legal">
-      <a href="{EXTERNAL}conditions-generales/">Conditions générales</a>
-      <a href="{EXTERNAL}politique-de-confidentialite/">Politique de confidentialité</a>
-      <span>Conception <a href="https://lawebfactory.com" rel="noopener" target="_blank">Joseph Lambert – La Web Factory</a></span>
+    </nav>
+    <div class="footer__social">
+      <a href="https://www.instagram.com/lafolieboulart/" aria-label="Instagram" rel="noopener" target="_blank">
+        <img src="{img_src('ig-icon-1.png')}" alt="" loading="lazy">
+      </a>
+      <a href="https://www.youtube.com/channel/UC5Mew3mgAWNC7L8HnJZfQiA/featured" aria-label="YouTube" rel="noopener" target="_blank">
+        <img src="{img_src('yt.png')}" alt="" loading="lazy">
+      </a>
     </div>
   </div>
+
+  <div class="footer__rule footer__rule--bottom" aria-hidden="true"></div>
+
+  <p class="footer__contact">
+    <a href="tel:+33559239310">+33 5 59 23 93 10</a> – 12, Allée du Château, 64200, Biarritz
+  </p>
+
+  <div class="footer__legal">
+    <a href="{EXTERNAL}conditions-generales/">Conditions générales</a>
+    <a href="{EXTERNAL}politique-de-confidentialite/">Politique de confidentialité</a>
+  </div>
+
+  <p class="footer__credit">
+    Conception <a href="https://lawebfactory.com" rel="noopener" target="_blank">Joseph Lambert – La Web Factory</a>
+  </p>
 </footer>'''
 
 

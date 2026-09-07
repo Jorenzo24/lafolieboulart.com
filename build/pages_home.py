@@ -66,7 +66,7 @@ def build():
   </div>
 </section>
 
-<section class="section section--gap-sm">
+<section class="section">
   <div class="wrap-1300">
     {split(
         f"""{title(T(P, 10), 'end')}
@@ -109,7 +109,7 @@ def build():
   {showcase(spa_2, spa_3)}
 </section>
 
-<section class="section section--gap-sm">
+<section class="section">
   <div class="wrap-1140">
     {split(
         f"""{title(T(P, 55), 'start')}
@@ -134,7 +134,7 @@ def build():
   {showcase(rec_2, rec_3)}
 </section>
 
-<section class="section section--gap-lg">
+<section class="section">
   <div class="wrap-1300">
     {split(
         picture(*colonnes),
@@ -144,7 +144,7 @@ def build():
   </div>
 </section>
 
-<section class="section section--gap-sm">
+<section class="section">
   <div class="wrap-1300">
     {split(
         f"""{title(T(P, 80), 'end', ink=True)}
