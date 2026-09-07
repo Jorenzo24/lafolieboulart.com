@@ -385,3 +385,82 @@ def feature(title, body, tid=None):
   <h2 class="feature__title">{lines(title)}</h2>
   <div class="prose">{body}</div>
 </article>'''
+
+
+# --------------------------------------------------------------------------
+# Blocs repris du site d'origine
+# --------------------------------------------------------------------------
+CREST = img_src('logo-or2-1024x792.png')
+
+
+def showcase(row2, row3, carousel_imgs=None, crest=True):
+    """Bloc galerie de l'original : médaillon en débord, rangée de 2, rangée de 3,
+    puis éventuellement le carrousel à trois vues."""
+    crest_html = ''
+    if crest:
+        crest_html = (f'<div class="showcase__crest" aria-hidden="true">'
+                      f'<img src="{CREST}" alt="" loading="lazy" decoding="async"></div>')
+
+    def cells(pairs):
+        return '\n'.join(
+            f'      <figure class="showcase__cell" data-lightbox style="margin:0">'
+            f'{picture(src, alt)}</figure>' for src, alt in pairs)
+
+    rows = ''
+    if row2:
+        rows += f'\n    <div class="showcase__row showcase__row--2">\n{cells(row2)}\n    </div>'
+    if row3:
+        rows += f'\n    <div class="showcase__row showcase__row--3">\n{cells(row3)}\n    </div>'
+
+    car = ''
+    if carousel_imgs:
+        slides = '\n'.join(
+            f'        <div class="carousel__slide" role="group" aria-roledescription="diapositive" '
+            f'aria-label="{i + 1} sur {len(carousel_imgs)}" data-lightbox>{picture(src, alt)}</div>'
+            for i, (src, alt) in enumerate(carousel_imgs))
+        car = f'''
+  <div class="carousel" data-carousel data-autoplay="5000" tabindex="0" role="region"
+       aria-roledescription="carrousel" aria-label="Galerie photos">
+    <div class="carousel__viewport">
+      <div class="carousel__track">
+{slides}
+      </div>
+    </div>
+    <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Images précédentes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg></button>
+    <button class="carousel__btn carousel__btn--next" type="button" aria-label="Images suivantes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg></button>
+    <div class="carousel__dots"></div>
+  </div>'''
+
+    return f'''<div class="showcase reveal">
+  <div class="showcase__band">
+    {crest_html}{rows}
+  </div>{car}
+</div>'''
+
+
+def split(col1, col2):
+    """Deux colonnes à parts égales, comme les sections d'origine."""
+    return f'''<div class="split">
+  <div class="split__col reveal">{col1}</div>
+  <div class="split__col reveal reveal-d1">{col2}</div>
+</div>'''
+
+
+def title(text, align='start', ink=False):
+    cls = 'section__title'
+    cls += ' section__title--ink' if ink else ''
+    cls += ' section__title--start' if align == 'start' else (' section__title--end' if align == 'end' else '')
+    return f'<h2 class="{cls}">{lines(text)}</h2>'
+
+
+def btn_row(html, align='start'):
+    return f'<p class="btn-row btn-row--{align}">{html}</p>'
+
+
+def vimeo(video_id, label):
+    return (f'<div class="video-embed">'
+            f'<iframe src="https://player.vimeo.com/video/{video_id}'
+            f'?autoplay=1&amp;playsinline=1&amp;autopause=0&amp;loop=1&amp;muted=1'
+            f'&amp;title=0&amp;portrait=0&amp;byline=0" '
+            f'title="{e(label)}" allow="autoplay; fullscreen; picture-in-picture" '
+            f'allowfullscreen loading="lazy"></iframe></div>')

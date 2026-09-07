@@ -131,6 +131,89 @@
     restart();
   });
 
+  /* ---------- Carrousel multi-vues (3 / 2 / 1 selon la largeur) ---------- */
+  document.querySelectorAll('[data-carousel]').forEach(function (root) {
+    var track = root.querySelector('.carousel__track');
+    var slides = Array.prototype.slice.call(root.querySelectorAll('.carousel__slide'));
+    var dotsWrap = root.querySelector('.carousel__dots');
+    if (!track || !slides.length) { return; }
+
+    var index = 0, timer = null, dots = [];
+    var delay = parseInt(root.getAttribute('data-autoplay') || '5000', 10);
+
+    function perView() {
+      var w = window.innerWidth;
+      if (w <= 767) { return 1; }
+      if (w <= 1024) { return 2; }
+      return 3;
+    }
+    function maxIndex() { return Math.max(0, slides.length - perView()); }
+
+    function buildDots() {
+      if (!dotsWrap) { return; }
+      dotsWrap.textContent = '';
+      dots = [];
+      for (var i = 0; i <= maxIndex(); i++) {
+        (function (n) {
+          var d = document.createElement('button');
+          d.className = 'carousel__dot';
+          d.type = 'button';
+          d.setAttribute('aria-label', 'Vue ' + (n + 1));
+          d.addEventListener('click', function () { go(n); restart(); });
+          dotsWrap.appendChild(d);
+          dots.push(d);
+        })(i);
+      }
+    }
+
+    function go(i) {
+      var max = maxIndex();
+      index = i < 0 ? max : (i > max ? 0 : i);
+      track.style.transform = 'translateX(' + (-index * (100 / perView())) + '%)';
+      dots.forEach(function (d, n) { d.setAttribute('aria-current', String(n === index)); });
+    }
+    function next() { go(index + 1); }
+    function prev() { go(index - 1); }
+    function restart() {
+      if (timer) { clearInterval(timer); }
+      if (delay && !reduced) { timer = setInterval(next, delay); }
+    }
+
+    var btnPrev = root.querySelector('.carousel__btn--prev');
+    var btnNext = root.querySelector('.carousel__btn--next');
+    if (btnPrev) { btnPrev.addEventListener('click', function () { prev(); restart(); }); }
+    if (btnNext) { btnNext.addEventListener('click', function () { next(); restart(); }); }
+
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { prev(); restart(); }
+      if (e.key === 'ArrowRight') { next(); restart(); }
+    });
+
+    var x0 = null;
+    root.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    root.addEventListener('touchend', function (e) {
+      if (x0 === null) { return; }
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45) { dx < 0 ? next() : prev(); restart(); }
+      x0 = null;
+    }, { passive: true });
+
+    root.addEventListener('mouseenter', function () { if (timer) { clearInterval(timer); } });
+    root.addEventListener('mouseleave', restart);
+
+    var pv = perView();
+    window.addEventListener('resize', function () {
+      if (perView() === pv) { return; }
+      pv = perView();
+      buildDots();
+      go(Math.min(index, maxIndex()));
+    });
+
+    buildDots();
+    go(0);
+    restart();
+  });
+
   /* ---------- Visionneuse ---------- */
   var lbItems = Array.prototype.slice.call(document.querySelectorAll('[data-lightbox]'));
   if (lbItems.length) {
