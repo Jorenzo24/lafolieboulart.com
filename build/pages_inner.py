@@ -177,7 +177,7 @@ def build_suite(p):
 {specs}
     </div>
     <p class="reveal" style="text-align:center;margin-top:clamp(2.5rem,6vw,4rem)">
-      {btn('https://lafolieboulart.fr/wp-booking-calendar/', 'Réserver cette suite', solid=True)}
+      {btn('reservation.html', 'Réserver cette suite', solid=True)}
       <span style="display:inline-block;width:1rem"></span>
       {btn('suites.html', 'Toutes nos suites')}
     </p>

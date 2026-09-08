@@ -68,10 +68,12 @@ PAGES = {
     'evenements/assiettes-gourmandes': 'ev-assiettes.html',
     'evenements/manifestations-locales': 'ev-manifestations.html',
     'evenements/lieux-a-visiter': 'ev-lieux.html',
+    'wp-booking-calendar': 'reservation.html',
 }
 
-# Pages restées sur le site d'origine (non reprises dans ce périmètre)
-EXTERNAL = 'https://lafolieboulart.fr/'
+# Pages restées sur le site d'origine (non reprises dans ce périmètre).
+# lafolieboulart.fr redirige en 301 vers .com : on vise directement la cible.
+EXTERNAL = 'https://lafolieboulart.com/'
 
 # Préproduction : la copie hébergée sur GitHub Pages ne doit pas être indexée,
 # afin de ne pas concurrencer lafolieboulart.com. Passer à False le jour de la
@@ -146,7 +148,7 @@ NAV_SHOTS = [
     '09-Club-8-modifié.jpg',
 ]
 
-BOOKING = 'https://lafolieboulart.fr/wp-booking-calendar/'
+BOOKING = 'reservation.html'
 LOGO_GOLD = img_src('boulart-or-aplat-exe-2-1024x636.png')
 LOGO_WHITE = img_src('LFB-1881-blanc.png')
 
@@ -275,7 +277,7 @@ FOOTER = f'''<footer class="footer">
 </footer>'''
 
 
-def page(filename, title, description, body, current, og_image=None):
+def page(filename, title, description, body, current, og_image=None, extra_js=None):
     og = og_image or img_src('Chateau-de-la-Folie-Boulart-.-Print-.-052-copie.png')
     doc = f'''<!DOCTYPE html>
 <html lang="fr">
@@ -309,6 +311,7 @@ def page(filename, title, description, body, current, og_image=None):
 </main>
 {FOOTER}
 <script src="assets/js/main.js" defer></script>
+{f'<script src="{extra_js}" defer></script>' if extra_js else ''}
 </body>
 </html>
 '''

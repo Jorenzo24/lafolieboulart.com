@@ -21,6 +21,7 @@ d'origine. Les couleurs, la typographie et le découpage en sections sont conser
 | 06. Services | `services.html` |
 | 07. Philosophie | `philosophie.html` (ancres `#histoire`, `#palais`, `#folie`) |
 | 08. Évènements | `evenements.html` + 4 pages `ev-*.html` |
+| Demande de réservation | `reservation.html` |
 
 ## Charte reprise du site d'origine
 
@@ -48,6 +49,33 @@ d'origine. Les couleurs, la typographie et le découpage en sections sont conser
 - Le film d'accueil est en cinémascope : il est affiché en entier sur mobile
   plutôt que recadré.
 - Barres dorées de séparation restituées en CSS (nettes à toute résolution).
+
+## Module de demande de réservation
+
+`reservation.html` remplace le plugin Booking Calendar. C'est une **demande** :
+rien n'est confirmé à l'envoi, et le formulaire le dit explicitement.
+
+Parcours en trois étapes — dates, coordonnées, vérification — puis accusé de
+réception. Calendrier maison sur deux mois, sélection de plage, séjour de trois
+nuits minimum imposé (si l'on choisit une sortie trop proche, la plage est
+étendue au minimum plutôt que refusée). Récapitulatif latéral qui se met à jour
+en direct, validation par champ, champ piège anti-robot.
+
+### Brancher l'envoi
+
+Le module lit son point d'envoi dans l'attribut `data-endpoint`
+(`build/pages_resa.py`) :
+
+| `data-endpoint` | Comportement |
+| --- | --- |
+| vide (par défaut) | ouvre le message pré-rempli dans la messagerie du visiteur |
+| `reservation.php` | envoi serveur — script fourni, à utiliser sur le VPS |
+| URL d'un service | POST JSON vers Formspree, Web3Forms… |
+
+`reservation.php` attend le JSON, contrôle les champs et transmet la demande à
+l'adresse définie dans ses constantes `DESTINATAIRE` / `EXPEDITEUR`. Il est déjà
+listé dans `.cpanel.yml`. **GitHub Pages ne sert pas le PHP** : la démonstration
+en ligne fonctionne donc en mode messagerie.
 
 ## Régénérer les pages
 

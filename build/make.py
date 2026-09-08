@@ -6,11 +6,13 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import pages_home
+import pages_resa
 import pages_inner as PI
 
 made = []
 
 made.append(pages_home.build())
+made.append(pages_resa.build())
 made.append(PI.editorial(
     'chateau', 'chateau.html', 'chateau.html', '02. Château',
     'Le Château⎮La Folie Boulart⎮Biarritz',
