@@ -26,6 +26,9 @@ def norm(s):
     s = unicodedata.normalize('NFC', s)
     s = s.replace(' ', ' ').replace(' ', ' ')
     s = re.sub(r'\s+', ' ', s)
+    # « Biarritz » est volontairement rendu en capitales (règle de marque) :
+    # on compare donc ce mot sans tenir compte de la casse.
+    s = re.sub(r'biarritz', 'Biarritz', s, flags=re.IGNORECASE)
     return s.strip()
 
 

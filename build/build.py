@@ -94,8 +94,18 @@ def url(href):
     return EXTERNAL + (path + '/' if path else '') + anchor
 
 
+# Règle de marque : « Biarritz » s'écrit toujours en capitales.
+# Appliquée au rendu seulement — content.json reste le miroir fidèle de la
+# source, et les chemins de fichiers ne passent jamais par e().
+BIARRITZ_RE = re.compile(r'\bBiarritz\b', re.IGNORECASE)
+
+
+def biarritz(s):
+    return BIARRITZ_RE.sub('BIARRITZ', s)
+
+
 def e(s):
-    return html.escape(s, quote=True)
+    return html.escape(biarritz(s), quote=True)
 
 
 def paras(text):
@@ -240,7 +250,7 @@ FOOTER = f'''<footer class="footer">
 
   <div class="footer__cols">
     <div class="footer__mark">
-      <img src="{img_src('logo-monument-historique.png')}" alt="Monument historique — Biarritz" loading="lazy">
+      <img src="{img_src('logo-monument-historique.png')}" alt="Monument historique — BIARRITZ" loading="lazy">
     </div>
     <nav aria-label="Liens du pied de page">
       <ul class="footer__nav">
@@ -263,7 +273,7 @@ FOOTER = f'''<footer class="footer">
   <div class="footer__rule footer__rule--bottom" aria-hidden="true"></div>
 
   <p class="footer__contact">
-    <a href="tel:+33559239310">+33 5 59 23 93 10</a> – 12, Allée du Château, 64200, Biarritz
+    <a href="tel:+33559239310">+33 5 59 23 93 10</a> – 12, Allée du Château, 64200, BIARRITZ
   </p>
 
   <div class="footer__legal">

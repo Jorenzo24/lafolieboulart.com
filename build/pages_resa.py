@@ -210,7 +210,7 @@ def build():
       <div class="resa__contact">
         <p>Vous préférez nous parler de vive voix ?</p>
         <a href="tel:+33559239310">+33 5 59 23 93 10</a>
-        <p style="margin-top:.75rem">12, Allée du Château, 64200 Biarritz</p>
+        <p style="margin-top:.75rem">12, Allée du Château, 64200 BIARRITZ</p>
       </div>
     </div>
   </div>

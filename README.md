@@ -77,6 +77,17 @@ l'adresse définie dans ses constantes `DESTINATAIRE` / `EXPEDITEUR`. Il est dé
 listé dans `.cpanel.yml`. **GitHub Pages ne sert pas le PHP** : la démonstration
 en ligne fonctionne donc en mode messagerie.
 
+## Règle de marque
+
+**« Biarritz » s'écrit toujours BIARRITZ**, en capitales, dans tout le contenu
+rendu : texte, attributs `alt`/`title`, `<title>` et `<meta description>`.
+
+La règle vit dans `build/build.py` : la fonction `e()` l'applique à tout ce
+qu'elle échappe, et `e()` ne reçoit jamais d'URL — les noms de fichiers
+(`plage-biarritz-1.webp`…) restent donc intacts. `build/content.json` conserve
+la graphie d'origine : la règle s'applique au rendu seulement, et
+`build/verify.py` compare ce mot sans tenir compte de la casse.
+
 ## Régénérer les pages
 
 Les pages HTML sont produites par un générateur : **ne pas les modifier

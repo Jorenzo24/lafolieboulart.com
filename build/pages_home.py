@@ -48,7 +48,7 @@ def build():
 <section class="section section--intro">
   <div class="wrap-1140">
     <div class="intro reveal">
-      <img class="intro__logo" src="{img_src('boulart-or-aplat-exe-2-1024x636.png')}" alt="La Folie Boulart — Biarritz 1881" width="1024" height="636">
+      <img class="intro__logo" src="{img_src('boulart-or-aplat-exe-2-1024x636.png')}" alt="La Folie Boulart — BIARRITZ 1881" width="1024" height="636">
       <h1 class="intro__title">{lines(T(P, 0))}</h1>
       {rule()}
       <div class="prose prose--lead">{paras(T(P, 2))}{paras(T(P, 3))}</div>
