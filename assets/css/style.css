@@ -1094,19 +1094,16 @@ body.nav-open { overflow: hidden; }
 .spaces { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.9rem, 2vw, 1.5rem); }
 @media (max-width: 1000px) { .spaces { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px)  { .spaces { grid-template-columns: 1fr; } }
-.space { display: block; color: inherit; }
+.space { display: block; color: inherit; margin: 0; }
 .space__media { display: block; position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--paper-warm); }
-.space__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
-.space:hover .space__media img { transform: scale(1.05); }
+.space__media img { width: 100%; height: 100%; object-fit: cover; }
+
 .space__name {
   font-family: var(--serif); font-size: 17px; color: var(--ink);
   margin: .85rem 0 .3rem; display: flex; align-items: baseline; gap: .5rem;
 }
-.space__name::after {
-  content: ''; flex: 1; height: 1px; background: var(--line);
-  transition: background .3s var(--ease);
-}
-.space:hover .space__name::after { background: var(--gold); }
+.space__name::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
 .space__text { display: block; font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
 
 /* Services, en liste sobre */

@@ -81,23 +81,23 @@ def counter(name, label, note, value, mini, maxi):
 FACTS = [
     ('8', 'Suites'),
     ('5 ha', 'De parc'),
-    ('10 m', 'Bassin de nage'),
     ('14', 'Convives à table'),
+    ('63 m', 'Au-dessus de l’océan'),
 ]
 
 SPACES = [
     ('Suite-edouard-vii-de-la-Folie-Boulart-.-Print-.-029-scaled.jpg', 'Les suites',
      'Quatre suites et quatre chambres deluxe, de 34 à 110 m², aux salles de bains '
-     'de marbre de Carrare et bleu Turquin.', 'suites.html'),
+     'de marbre de Carrare et bleu Turquin.'),
     ('piscine-chateau-boulart-scaled.jpg', 'Le spa',
      'Bassin de nage de dix mètres sous voûte étoilée, hammam, sauna, jacuzzi, '
-     'salle de soins et salle de sport.', 'soins-bien-etre.html'),
+     'salle de soins et salle de sport.'),
     ('grand-salon-chateau-boulart.jpg', 'Les réceptions',
      'Grand salon, grande salle à manger, salle de billard, salon de thé, bar, '
-     'chapelle et chais.', 'receptions.html'),
+     'chapelle et chais.'),
     ('Chef-chateau.jpg', 'La table et les services',
      'Menus du chef, conciergerie, aviation privée, chauffeur, guide et '
-     'coach sportif.', 'services.html'),
+     'coach sportif.'),
 ]
 
 PERKS = [
@@ -105,7 +105,6 @@ PERKS = [
     'Monument historique',
     'Vue sur l’océan et les Pyrénées',
     'Domotique récompensée en 2022',
-    'Trois nuits minimum',
 ]
 
 
@@ -116,12 +115,14 @@ def included():
         for n, lbl in FACTS)
 
     spaces = ''.join(
-        f'''<a class="space" href="{href}">
+        f'''<figure class="space">
           <span class="space__media">{picture(img_src(src), name)}</span>
-          <span class="space__name">{name}</span>
-          <span class="space__text">{text}</span>
-        </a>'''
-        for src, name, text, href in SPACES)
+          <figcaption>
+            <span class="space__name">{name}</span>
+            <span class="space__text">{text}</span>
+          </figcaption>
+        </figure>'''
+        for src, name, text in SPACES)
 
     perks = ''.join(f'<li>{p}</li>' for p in PERKS)
 
