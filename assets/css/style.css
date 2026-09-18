@@ -1124,29 +1124,23 @@ body.nav-open { overflow: hidden; }
 .spa-list li:last-child { border-bottom: 0; }
 .spa-list span { font-size: 13px; color: var(--ink-soft); text-align: right; }
 
-/* Les réceptions : bande d'images, puis les salles nommées */
-.rec-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.5rem, 1.2vw, .8rem); margin-bottom: 1.25rem; }
-@media (max-width: 700px) { .rec-strip { grid-template-columns: 1fr 1fr; } }
-.rec-strip figure { margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--paper-warm); }
-.rec-strip img { width: 100%; height: 100%; object-fit: cover; }
-.rooms { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: .1rem 1.5rem; }
-@media (max-width: 860px) { .rooms { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 480px) { .rooms { grid-template-columns: 1fr; } }
-.rooms li {
-  font-size: 15px; color: var(--ink); padding: .55rem 0;
-  border-bottom: 1px solid rgba(32,32,32,.08);
-}
+/* Les réceptions : chaque salle sous son visuel */
+.rooms-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(.8rem, 1.6vw, 1.2rem); }
+@media (max-width: 860px) { .rooms-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .rooms-grid { grid-template-columns: 1fr; } }
+.room-tile { margin: 0; }
+.room-tile__media { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--paper-warm); }
+.room-tile__media img { width: 100%; height: 100%; object-fit: cover; }
+.room-tile__name { padding-top: .7rem; font-family: var(--serif); font-size: 15px; color: var(--ink); }
 
-/* Les services : deux colonnes de texte, une image en bandeau */
-.serv-part { display: grid; gap: clamp(1.25rem, 3vw, 2.25rem); align-items: center; }
-@media (min-width: 860px) { .serv-part { grid-template-columns: 1fr 1.35fr; } }
-.serv-part__media { aspect-ratio: 3 / 2; overflow: hidden; }
-.serv-part__media img { width: 100%; height: 100%; object-fit: cover; }
-.serv-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .1rem 1.5rem; }
-@media (max-width: 560px) { .serv-list { grid-template-columns: 1fr; } }
-.serv-list li {
-  font-size: 15px; color: var(--ink); padding: .6rem 0;
-  border-bottom: 1px solid rgba(32,32,32,.08);
+/* Les extérieurs : une vue large, puis trois plus petites */
+.outside-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(.6rem, 1.4vw, 1rem); }
+.out-tile { margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--paper-warm); }
+.out-tile img { width: 100%; height: 100%; object-fit: cover; }
+.out-tile:first-child { grid-column: span 3; aspect-ratio: 21 / 8; }
+@media (max-width: 640px) {
+  .outside-grid { grid-template-columns: 1fr; }
+  .out-tile:first-child { grid-column: span 1; aspect-ratio: 3 / 2; }
 }
 
 /* Services, en liste sobre */

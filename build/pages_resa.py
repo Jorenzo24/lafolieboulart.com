@@ -87,14 +87,14 @@ FACTS = [
 
 # Nom, surface et visuel de chaque suite, repris de la page « Nos suites ».
 SUITES = [
-    ('Suite Édouard VII', '110 m²', 'Suite-edouard-vii-de-la-Folie-Boulart-.-Print-.-029-scaled.jpg'),
-    ('Suite COCO', '105 m²', 'Chambre-COCO-scaled.jpg'),
-    ('Suite Wanamaker', '80 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-022-scaled.jpg'),
-    ('Suite Les Petits Points', '55 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-042-scaled.jpg'),
-    ('Chambre Deluxe Le Phare', '45 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-039-scaled.jpg'),
-    ('Chambre Deluxe Les Estampes', '45 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-040-scaled.jpg'),
-    ('Chambre Deluxe Oscar II', '40 m²', 'LFB6-scaled.jpg'),
-    ('Chambre Deluxe l’Explorateur', '34 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-025-scaled.jpg'),
+    ('Édouard VII', '110 m²', 'Suite-edouard-vii-de-la-Folie-Boulart-.-Print-.-029-scaled.jpg'),
+    ('COCO', '105 m²', 'Chambre-COCO-scaled.jpg'),
+    ('Wanamaker', '80 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-022-scaled.jpg'),
+    ('Les Petits Points', '55 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-042-scaled.jpg'),
+    ('Le Phare', '45 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-039-scaled.jpg'),
+    ('Les Estampes', '45 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-040-scaled.jpg'),
+    ('Oscar II', '40 m²', 'LFB6-scaled.jpg'),
+    ('L’Explorateur', '34 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-025-scaled.jpg'),
 ]
 
 SPA = [
@@ -106,15 +106,21 @@ SPA = [
     ('Salle de sport', 'Coach diplômé sur demande'),
 ]
 
-ROOMS = ['Le Grand Salon', 'La Grande Salle à Manger', 'Salle de Billard',
-         'Salon de Thé', 'Bar', 'La Chapelle', 'Caves & Chais']
+ROOMS = [
+    ('Le Grand Salon', 'grand-salon-chateau-boulart.jpg'),
+    ('La Grande Salle à Manger', 'salle-a-manger-scaled.jpg'),
+    ('Salle de Billard', 'billard-chateau-scaled.jpg'),
+    ('Salon de Thé', 'salon-jaune-chateau-boulart.jpg'),
+    ('Le Bar', 'bar-chateau.jpg'),
+    ('La Chapelle', 'chapelle-de-la-Folie-Boulart-.-Print-.-034-scaled.jpg'),
+]
 
-REC_SHOTS = ['grand-salon-chateau-boulart.jpg', 'salle-a-manger-scaled.jpg',
-             'billard-chateau-scaled.jpg', 'salon-jaune-chateau-boulart.jpg']
-
-SERVICES = ['Aviation privée', 'Chauffeur privé', 'Les Arts de la Table',
-            'Familles', 'Guide touristique', 'Massages',
-            'Soins de beauté', 'Fitness & coach sportif']
+OUTSIDE = [
+    'Chateau-de-la-Folie-Boulart-.-Print-.-052-copie.jpg',
+    'Chateau-de-la-Folie-Boulart-.-Print-.-056-copie-scaled.jpg',
+    'Chateau-de-la-Folie-Boulart-.-Print-.-054-copie-scaled.jpg',
+    'chateau-boulart-nuit-1.jpg',
+]
 
 PERKS = [
     'Propriété entière, à usage exclusif',
@@ -150,10 +156,17 @@ def included():
         f'<li>{name}{f"<span>{note}</span>" if note else ""}</li>'
         for name, note in SPA)
 
-    strip = ''.join(
-        f'<figure>{picture(img_src(x), "")}</figure>' for x in REC_SHOTS)
-    rooms = ''.join(f'<li>{r}</li>' for r in ROOMS)
-    services = ''.join(f'<li>{x}</li>' for x in SERVICES)
+    rooms = ''.join(
+        f'''<figure class="room-tile">
+            <span class="room-tile__media">{picture(img_src(img), name)}</span>
+            <figcaption class="room-tile__name">{name}</figcaption>
+          </figure>'''
+        for name, img in ROOMS)
+
+    outside = ''.join(
+        f'<figure class="out-tile">{picture(img_src(x), "La Folie Boulart")}</figure>'
+        for x in OUTSIDE)
+
     perks = ''.join(f'<li>{p}</li>' for p in PERKS)
 
     return f'''<section class="included" aria-labelledby="inc-t">
@@ -180,16 +193,12 @@ def included():
 
         <div class="inc-part">
           {part_head('Les réceptions', 'Sept salons et salles')}
-          <div class="rec-strip">{strip}</div>
-          <ul class="rooms">{rooms}</ul>
+          <div class="rooms-grid">{rooms}</div>
         </div>
 
         <div class="inc-part">
-          {part_head('La table et les services', 'Sur mesure')}
-          <div class="serv-part">
-            <div class="serv-part__media">{picture(img_src('Chef-chateau.jpg'), 'Le chef des cuisines')}</div>
-            <ul class="serv-list">{services}</ul>
-          </div>
+          {part_head('Les extérieurs', 'Cinq hectares sur les hauteurs')}
+          <div class="outside-grid">{outside}</div>
         </div>
 
         <ul class="perks">{perks}</ul>
