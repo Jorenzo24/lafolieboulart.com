@@ -76,29 +76,45 @@ def counter(name, label, note, value, mini, maxi):
                 </div>'''
 
 
-# Chiffres et descriptifs repris du contenu du site : 8 suites (4 suites et
-# 4 chambres deluxe), cinq hectares, bassin de dix mètres, table de 14 convives.
+# Chiffres et contenus repris du site : 8 suites (4 suites et 4 chambres
+# deluxe), cinq hectares, table de quatorze convives, sept salles de réception.
 FACTS = [
     ('8', 'Suites'),
     ('5 ha', 'De parc'),
     ('14', 'Convives à table'),
-    ('63 m', 'Au-dessus de l’océan'),
+    ('7', 'Salons et salles'),
 ]
 
-SPACES = [
-    ('Suite-edouard-vii-de-la-Folie-Boulart-.-Print-.-029-scaled.jpg', 'Les suites',
-     'Quatre suites et quatre chambres deluxe, de 34 à 110 m², aux salles de bains '
-     'de marbre de Carrare et bleu Turquin.'),
-    ('piscine-chateau-boulart-scaled.jpg', 'Le spa',
-     'Bassin de nage de dix mètres sous voûte étoilée, hammam, sauna, jacuzzi, '
-     'salle de soins et salle de sport.'),
-    ('grand-salon-chateau-boulart.jpg', 'Les réceptions',
-     'Grand salon, grande salle à manger, salle de billard, salon de thé, bar, '
-     'chapelle et chais.'),
-    ('Chef-chateau.jpg', 'La table et les services',
-     'Menus du chef, conciergerie, aviation privée, chauffeur, guide et '
-     'coach sportif.'),
+# Nom, surface et visuel de chaque suite, repris de la page « Nos suites ».
+SUITES = [
+    ('Suite Édouard VII', '110 m²', 'Suite-edouard-vii-de-la-Folie-Boulart-.-Print-.-029-scaled.jpg'),
+    ('Suite COCO', '105 m²', 'Chambre-COCO-scaled.jpg'),
+    ('Suite Wanamaker', '80 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-022-scaled.jpg'),
+    ('Suite Les Petits Points', '55 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-042-scaled.jpg'),
+    ('Chambre Deluxe Le Phare', '45 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-039-scaled.jpg'),
+    ('Chambre Deluxe Les Estampes', '45 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-040-scaled.jpg'),
+    ('Chambre Deluxe Oscar II', '40 m²', 'LFB6-scaled.jpg'),
+    ('Chambre Deluxe l’Explorateur', '34 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-025-scaled.jpg'),
 ]
+
+SPA = [
+    ('Bassin de nage', 'Dix mètres, sous voûte étoilée'),
+    ('Hammam', ''),
+    ('Sauna', ''),
+    ('Jacuzzi', ''),
+    ('Salle de soins', 'Massages ayurvédiques, soins visage et corps'),
+    ('Salle de sport', 'Coach diplômé sur demande'),
+]
+
+ROOMS = ['Le Grand Salon', 'La Grande Salle à Manger', 'Salle de Billard',
+         'Salon de Thé', 'Bar', 'La Chapelle', 'Caves & Chais']
+
+REC_SHOTS = ['grand-salon-chateau-boulart.jpg', 'salle-a-manger-scaled.jpg',
+             'billard-chateau-scaled.jpg', 'salon-jaune-chateau-boulart.jpg']
+
+SERVICES = ['Aviation privée', 'Chauffeur privé', 'Les Arts de la Table',
+            'Familles', 'Guide touristique', 'Massages',
+            'Soins de beauté', 'Fitness & coach sportif']
 
 PERKS = [
     'Propriété entière, à usage exclusif',
@@ -108,22 +124,36 @@ PERKS = [
 ]
 
 
+def part_head(title, count):
+    return (f'<div class="inc-part__head">'
+            f'<h3 class="inc-part__title">{title}</h3>'
+            f'<span class="inc-part__count">{count}</span></div>')
+
+
 def included():
     facts = ''.join(
         f'<div class="fact"><span class="fact__num">{n}</span>'
         f'<span class="fact__label">{lbl}</span></div>'
         for n, lbl in FACTS)
 
-    spaces = ''.join(
-        f'''<figure class="space">
-          <span class="space__media">{picture(img_src(src), name)}</span>
-          <figcaption>
-            <span class="space__name">{name}</span>
-            <span class="space__text">{text}</span>
-          </figcaption>
-        </figure>'''
-        for src, name, text in SPACES)
+    suites = ''.join(
+        f'''<figure class="suite-tile">
+            <span class="suite-tile__media">{picture(img_src(img), name)}</span>
+            <figcaption>
+              <span class="suite-tile__name">{name}</span>
+              <span class="suite-tile__area">{area}</span>
+            </figcaption>
+          </figure>'''
+        for name, area, img in SUITES)
 
+    spa = ''.join(
+        f'<li>{name}{f"<span>{note}</span>" if note else ""}</li>'
+        for name, note in SPA)
+
+    strip = ''.join(
+        f'<figure>{picture(img_src(x), "")}</figure>' for x in REC_SHOTS)
+    rooms = ''.join(f'<li>{r}</li>' for r in ROOMS)
+    services = ''.join(f'<li>{x}</li>' for x in SERVICES)
     perks = ''.join(f'<li>{p}</li>' for p in PERKS)
 
     return f'''<section class="included" aria-labelledby="inc-t">
@@ -132,8 +162,36 @@ def included():
           <p class="included__sub">La demeure vous est réservée dans son entier, du parc aux
           combles. Voici ce qui vous attend.</p>
         </div>
+
         <div class="facts">{facts}</div>
-        <div class="spaces">{spaces}</div>
+
+        <div class="inc-part">
+          {part_head('Les suites', 'Quatre suites, quatre chambres deluxe')}
+          <div class="suites-grid">{suites}</div>
+        </div>
+
+        <div class="inc-part">
+          {part_head('Le spa', 'Au sous-sol, sous voûte')}
+          <div class="spa-part">
+            <div class="spa-part__media">{picture(img_src('piscine-chateau-boulart-scaled.jpg'), 'Le bassin de nage')}</div>
+            <ul class="spa-list">{spa}</ul>
+          </div>
+        </div>
+
+        <div class="inc-part">
+          {part_head('Les réceptions', 'Sept salons et salles')}
+          <div class="rec-strip">{strip}</div>
+          <ul class="rooms">{rooms}</ul>
+        </div>
+
+        <div class="inc-part">
+          {part_head('La table et les services', 'Sur mesure')}
+          <div class="serv-part">
+            <div class="serv-part__media">{picture(img_src('Chef-chateau.jpg'), 'Le chef des cuisines')}</div>
+            <ul class="serv-list">{services}</ul>
+          </div>
+        </div>
+
         <ul class="perks">{perks}</ul>
       </section>'''
 

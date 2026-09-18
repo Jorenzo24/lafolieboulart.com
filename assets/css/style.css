@@ -1090,21 +1090,64 @@ body.nav-open { overflow: hidden; }
   .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
 
-/* Espaces illustrés */
-.spaces { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.9rem, 2vw, 1.5rem); }
-@media (max-width: 1000px) { .spaces { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px)  { .spaces { grid-template-columns: 1fr; } }
-.space { display: block; color: inherit; margin: 0; }
-.space__media { display: block; position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--paper-warm); }
-.space__media img { width: 100%; height: 100%; object-fit: cover; }
-
-.space__name {
-  font-family: var(--serif); font-size: 17px; color: var(--ink);
-  margin: .85rem 0 .3rem; display: flex; align-items: baseline; gap: .5rem;
+/* ---------- Un sous-bloc par section, avec sa propre mise en page ---------- */
+.inc-part { margin-top: clamp(2.5rem, 5vw, 4rem); }
+.inc-part__head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem; }
+.inc-part__title {
+  font-family: var(--serif); font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  color: var(--ink); margin: 0; white-space: nowrap;
 }
-.space__name::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.inc-part__head::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.inc-part__count { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-deep); white-space: nowrap; }
 
-.space__text { display: block; font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+/* Les huit suites : grille de vignettes, nom et surface */
+.suites-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.8rem, 1.6vw, 1.2rem); }
+@media (max-width: 900px) { .suites-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .suites-grid { grid-template-columns: 1fr; } }
+.suite-tile { margin: 0; }
+.suite-tile__media { display: block; aspect-ratio: 3 / 4; overflow: hidden; background: var(--paper-warm); }
+.suite-tile__media img { width: 100%; height: 100%; object-fit: cover; }
+.suite-tile figcaption { padding-top: .7rem; }
+.suite-tile__name { display: block; font-family: var(--serif); font-size: 15px; color: var(--ink); line-height: 1.35; }
+.suite-tile__area { display: block; margin-top: .2rem; font-size: 13px; letter-spacing: .1em; color: var(--gold-deep); }
+
+/* Le spa : une grande image, les équipements en regard */
+.spa-part { display: grid; gap: clamp(1.25rem, 3vw, 2.25rem); align-items: center; }
+@media (min-width: 860px) { .spa-part { grid-template-columns: 1.35fr 1fr; } }
+.spa-part__media { aspect-ratio: 4 / 3; overflow: hidden; }
+.spa-part__media img { width: 100%; height: 100%; object-fit: cover; }
+.spa-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+.spa-list li {
+  display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+  padding: .7rem 0; border-bottom: 1px solid rgba(32,32,32,.08); font-size: 15px; color: var(--ink);
+}
+.spa-list li:last-child { border-bottom: 0; }
+.spa-list span { font-size: 13px; color: var(--ink-soft); text-align: right; }
+
+/* Les réceptions : bande d'images, puis les salles nommées */
+.rec-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.5rem, 1.2vw, .8rem); margin-bottom: 1.25rem; }
+@media (max-width: 700px) { .rec-strip { grid-template-columns: 1fr 1fr; } }
+.rec-strip figure { margin: 0; aspect-ratio: 3 / 2; overflow: hidden; background: var(--paper-warm); }
+.rec-strip img { width: 100%; height: 100%; object-fit: cover; }
+.rooms { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: .1rem 1.5rem; }
+@media (max-width: 860px) { .rooms { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .rooms { grid-template-columns: 1fr; } }
+.rooms li {
+  font-size: 15px; color: var(--ink); padding: .55rem 0;
+  border-bottom: 1px solid rgba(32,32,32,.08);
+}
+
+/* Les services : deux colonnes de texte, une image en bandeau */
+.serv-part { display: grid; gap: clamp(1.25rem, 3vw, 2.25rem); align-items: center; }
+@media (min-width: 860px) { .serv-part { grid-template-columns: 1fr 1.35fr; } }
+.serv-part__media { aspect-ratio: 3 / 2; overflow: hidden; }
+.serv-part__media img { width: 100%; height: 100%; object-fit: cover; }
+.serv-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .1rem 1.5rem; }
+@media (max-width: 560px) { .serv-list { grid-template-columns: 1fr; } }
+.serv-list li {
+  font-size: 15px; color: var(--ink); padding: .6rem 0;
+  border-bottom: 1px solid rgba(32,32,32,.08);
+}
 
 /* Services, en liste sobre */
 .perks {
