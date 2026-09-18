@@ -28,7 +28,7 @@ d'origine. Les couleurs, la typographie et le découpage en sections sont conser
 | Rôle | Valeur |
 | --- | --- |
 | Bleu nuit | `#2c4660` (variantes `#234762`, `#43687f`, `#4e6686`) |
-| Or | `#bc9744` / `#d1a754` |
+| Or | `#c5952e` (échantillonné sur le logo officiel) / clair `#e0bc72` / foncé `#8f6a1e` |
 | Texte | `#202020`, `#5c5c5c` |
 | Titres | Canela (Light 300 / Regular 400), auto-hébergée en WOFF2 |
 | Textes courants | Crimson Text |

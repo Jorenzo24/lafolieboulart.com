@@ -130,8 +130,8 @@
 </div>
 <main id="main">
 
-<section class="page-hero">
-  <div class="page-hero__media"><img src="assets/img/Chateau-de-la-Folie-Boulart-.-Print-.-049-scaled.webp" alt="La Folie Boulart" loading="eager" fetchpriority="high"></div>
+<section class="page-hero page-hero--facade">
+  <div class="page-hero__media"><img src="assets/img/Facade-nord-chateau-boulart-scaled.webp" alt="La Folie Boulart — façade du château" loading="eager" fetchpriority="high"></div>
   <div class="page-hero__inner">
     <p class="eyebrow reveal">La Folie Boulart</p>
     <h1 class="page-hero__title reveal reveal-d1">Demande de réservation</h1>
@@ -152,6 +152,14 @@
     <div class="resa" data-resa data-endpoint="" data-mailto="contact@lafolieboulart.com">
 
       <ol class="steps" aria-label="Étapes de la demande"><li class="steps__item" data-state="current"><span class="steps__num">1</span><span class="steps__label">Séjour</span></li><li class="steps__sep" aria-hidden="true"></li><li class="steps__item" data-state="todo"><span class="steps__num">2</span><span class="steps__label">Coordonnées</span></li><li class="steps__sep" aria-hidden="true"></li><li class="steps__item" data-state="todo"><span class="steps__num">3</span><span class="steps__label">Confirmation</span></li></ol>
+
+      <div class="exclusive">
+        <p class="exclusive__label">Privatisation exclusive</p>
+        <p>La Folie Boulart se loue <strong>dans son intégralité</strong>, à un seul hôte à la fois.
+        Les huit suites, le spa, les salons et les jardins vous sont réservés pour la durée
+        de votre séjour.</p>
+        <p>Nous ne proposons pas de chambre à l’unité : la demeure ne se partage pas.</p>
+      </div>
 
       <div class="notice">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/></svg>
@@ -183,22 +191,63 @@
               </div>
               <p class="field__error" data-error="dates" role="alert" style="margin-top:.75rem"></p>
 
-              <h2 class="resa__legend" style="margin-top:2.5rem">Vos voyageurs</h2>
-              <p class="resa__hint">La propriété accueille jusqu’à seize personnes dans ses huit suites.</p>
-              <div class="field-row field-row--3">
+              <h2 class="resa__legend" style="margin-top:2.5rem">Vos convives</h2>
+              <p class="resa__hint">La demeure accueille jusqu’à seize personnes dans ses huit suites.</p>
+
+              <div class="counters">
+                <div class="counter">
+                  <span class="counter__label">
+                    <span class="counter__name">Adultes</span>
+                    <span class="counter__note">À partir de 13 ans</span>
+                  </span>
+                  <span class="counter__ctrl">
+                    <button class="counter__btn" type="button" data-step="-1" data-for="adults"
+                            aria-label="Retirer une adulte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+                    <output class="counter__value" for="adults" data-out="adults">2</output>
+                    <button class="counter__btn" type="button" data-step="1" data-for="adults"
+                            aria-label="Ajouter une adulte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+                  </span>
+                  <input type="hidden" name="adults" value="2" data-min="1" data-max="16">
+                </div>
+                <div class="counter">
+                  <span class="counter__label">
+                    <span class="counter__name">Enfants</span>
+                    <span class="counter__note">De 2 à 12 ans</span>
+                  </span>
+                  <span class="counter__ctrl">
+                    <button class="counter__btn" type="button" data-step="-1" data-for="children"
+                            aria-label="Retirer un enfant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+                    <output class="counter__value" for="children" data-out="children">0</output>
+                    <button class="counter__btn" type="button" data-step="1" data-for="children"
+                            aria-label="Ajouter un enfant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+                  </span>
+                  <input type="hidden" name="children" value="0" data-min="0" data-max="10">
+                </div>
+                <div class="counter">
+                  <span class="counter__label">
+                    <span class="counter__name">Nourrissons</span>
+                    <span class="counter__note">Moins de 2 ans</span>
+                  </span>
+                  <span class="counter__ctrl">
+                    <button class="counter__btn" type="button" data-step="-1" data-for="infants"
+                            aria-label="Retirer un nourrisson"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+                    <output class="counter__value" for="infants" data-out="infants">0</output>
+                    <button class="counter__btn" type="button" data-step="1" data-for="infants"
+                            aria-label="Ajouter un nourrisson"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+                  </span>
+                  <input type="hidden" name="infants" value="0" data-min="0" data-max="6">
+                </div>
+                <p class="counters__total">
+                  <span>Au total</span>
+                  <strong data-total>2 convives</strong>
+                </p>
+              </div>
+              <p class="field__error" data-error="adults" role="alert"></p>
+
+              <div style="margin-top:1.75rem">
                 <div class="field">
-        <label class="field__label" for="adults">Adultes <span class="req" aria-hidden="true">*</span></label>
-        <input id="adults" name="adults" type="number" required min="1" max="16" value="2">
-        <p class="field__error" data-error="adults" role="alert"></p>
-      </div>
-                <div class="field">
-        <label class="field__label" for="children">Enfants</label>
-        <input id="children" name="children" type="number" min="0" max="10" value="0">
-        <p class="field__error" data-error="children" role="alert"></p>
-      </div>
-                <div class="field">
-        <label class="field__label" for="occasion">Occasion</label>
-        <select id="occasion" name="occasion"><option value="">— Précisez si vous le souhaitez —</option><option value="Séjour privé">Séjour privé</option><option value="Réception ou mariage">Réception ou mariage</option><option value="Séminaire ou événement d’entreprise">Séminaire ou événement d’entreprise</option><option value="Anniversaire ou fête de famille">Anniversaire ou fête de famille</option><option value="Tournage ou séance photo">Tournage ou séance photo</option><option value="Autre">Autre</option></select>
+        <label class="field__label" for="occasion">Motif du séjour</label>
+        <select id="occasion" name="occasion"><option value="">— Précisez si vous le souhaitez —</option><option value="Séjour de villégiature">Séjour de villégiature</option><option value="Réception ou mariage">Réception ou mariage</option><option value="Séminaire ou événement d’entreprise">Séminaire ou événement d’entreprise</option><option value="Anniversaire ou fête de famille">Anniversaire ou fête de famille</option><option value="Tournage ou séance photo">Tournage ou séance photo</option><option value="Autre">Autre</option></select>
         <p class="field__error" data-error="occasion" role="alert"></p>
       </div>
               </div>

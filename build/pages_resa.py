@@ -11,7 +11,7 @@ INTRO_2 = ("Les réservations s’effectuent pour l’entièreté de la proprié
            "et pour une durée minimum de 3 jours.")
 
 OCCASIONS = [
-    '', 'Séjour privé', 'Réception ou mariage', 'Séminaire ou événement d’entreprise',
+    '', 'Séjour de villégiature', 'Réception ou mariage', 'Séminaire ou événement d’entreprise',
     'Anniversaire ou fête de famille', 'Tournage ou séance photo', 'Autre',
 ]
 
@@ -48,6 +48,30 @@ def field(name, label, kind='text', required=False, **kw):
       </div>'''
 
 
+MINUS = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" '
+         'aria-hidden="true"><path d="M5 12h14"/></svg>')
+PLUS = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" '
+        'aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>')
+
+
+def counter(name, label, note, value, mini, maxi):
+    """Compteur feutré : moins / valeur / plus, doublé d'un champ masqué."""
+    return f'''<div class="counter">
+                  <span class="counter__label">
+                    <span class="counter__name">{label}</span>
+                    <span class="counter__note">{note}</span>
+                  </span>
+                  <span class="counter__ctrl">
+                    <button class="counter__btn" type="button" data-step="-1" data-for="{name}"
+                            aria-label="Retirer un{"e" if label == "Adultes" else ""} {label.lower()[:-1]}">{MINUS}</button>
+                    <output class="counter__value" for="{name}" data-out="{name}">{value}</output>
+                    <button class="counter__btn" type="button" data-step="1" data-for="{name}"
+                            aria-label="Ajouter un{"e" if label == "Adultes" else ""} {label.lower()[:-1]}">{PLUS}</button>
+                  </span>
+                  <input type="hidden" name="{name}" value="{value}" data-min="{mini}" data-max="{maxi}">
+                </div>'''
+
+
 def build():
     steps = ''.join(
         (f'<li class="steps__item" data-state="{"current" if i == 0 else "todo"}">'
@@ -57,8 +81,8 @@ def build():
         for i, lbl in enumerate(['Séjour', 'Coordonnées', 'Confirmation']))
 
     body = f'''
-<section class="page-hero">
-  <div class="page-hero__media">{picture(img_src('Chateau-de-la-Folie-Boulart-.-Print-.-049-scaled.jpg'), 'La Folie Boulart', eager=True)}</div>
+<section class="page-hero page-hero--facade">
+  <div class="page-hero__media">{picture(img_src('Facade-nord-chateau-boulart-scaled.jpg'), 'La Folie Boulart — façade du château', eager=True)}</div>
   <div class="page-hero__inner">
     <p class="eyebrow reveal">La Folie Boulart</p>
     <h1 class="page-hero__title reveal reveal-d1">Demande de réservation</h1>
@@ -79,6 +103,14 @@ def build():
     <div class="resa" data-resa data-endpoint="" data-mailto="contact@lafolieboulart.com">
 
       <ol class="steps" aria-label="Étapes de la demande">{steps}</ol>
+
+      <div class="exclusive">
+        <p class="exclusive__label">Privatisation exclusive</p>
+        <p>La Folie Boulart se loue <strong>dans son intégralité</strong>, à un seul hôte à la fois.
+        Les huit suites, le spa, les salons et les jardins vous sont réservés pour la durée
+        de votre séjour.</p>
+        <p>Nous ne proposons pas de chambre à l’unité : la demeure ne se partage pas.</p>
+      </div>
 
       <div class="notice">
         {ICON_INFO}
@@ -110,12 +142,22 @@ def build():
               </div>
               <p class="field__error" data-error="dates" role="alert" style="margin-top:.75rem"></p>
 
-              <h2 class="resa__legend" style="margin-top:2.5rem">Vos voyageurs</h2>
-              <p class="resa__hint">La propriété accueille jusqu’à seize personnes dans ses huit suites.</p>
-              <div class="field-row field-row--3">
-                {field('adults', 'Adultes', 'number', True, min=1, max=16, value=2)}
-                {field('children', 'Enfants', 'number', False, min=0, max=10, value=0)}
-                {field('occasion', 'Occasion', 'select')}
+              <h2 class="resa__legend" style="margin-top:2.5rem">Vos convives</h2>
+              <p class="resa__hint">La demeure accueille jusqu’à seize personnes dans ses huit suites.</p>
+
+              <div class="counters">
+                {counter('adults', 'Adultes', 'À partir de 13 ans', 2, 1, 16)}
+                {counter('children', 'Enfants', 'De 2 à 12 ans', 0, 0, 10)}
+                {counter('infants', 'Nourrissons', 'Moins de 2 ans', 0, 0, 6)}
+                <p class="counters__total">
+                  <span>Au total</span>
+                  <strong data-total>2 convives</strong>
+                </p>
+              </div>
+              <p class="field__error" data-error="adults" role="alert"></p>
+
+              <div style="margin-top:1.75rem">
+                {field('occasion', 'Motif du séjour', 'select')}
               </div>
 
               <div class="resa__actions">

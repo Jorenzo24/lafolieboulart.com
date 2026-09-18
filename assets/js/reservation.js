@@ -144,8 +144,10 @@
     set('sum-nights', n ? (n + (n > 1 ? ' nuits' : ' nuit')) : '—');
     var guests = val('adults');
     var kids = val('children');
-    var g = guests ? guests + (guests > 1 ? ' adultes' : ' adulte') : '—';
+    var babies = val('infants');
+    var g = guests ? guests + (+guests > 1 ? ' adultes' : ' adulte') : '—';
     if (kids && +kids > 0) { g += ', ' + kids + (+kids > 1 ? ' enfants' : ' enfant'); }
+    if (babies && +babies > 0) { g += ', ' + babies + (+babies > 1 ? ' nourrissons' : ' nourrisson'); }
     set('sum-guests', g);
   }
 
@@ -159,8 +161,50 @@
   }
 
   root.addEventListener('input', function (ev) {
-    if (ev.target.name === 'adults' || ev.target.name === 'children') { syncSummary(); }
     if (ev.target.name) { clearError(ev.target.name); }
+  });
+
+  /* ---------- Compteurs de convives ---------- */
+  function totalGuests() {
+    var t = 0;
+    root.querySelectorAll('.counter input[type="hidden"]').forEach(function (i) {
+      if (i.name !== 'infants') { t += +i.value || 0; }
+    });
+    return t;
+  }
+
+  function syncCounters() {
+    root.querySelectorAll('.counter').forEach(function (c) {
+      var input = c.querySelector('input[type="hidden"]');
+      var v = +input.value || 0;
+      var mini = +input.getAttribute('data-min');
+      var maxi = +input.getAttribute('data-max');
+      c.querySelector('[data-out]').textContent = v;
+      c.querySelector('[data-step="-1"]').disabled = v <= mini;
+      c.querySelector('[data-step="1"]').disabled = v >= maxi;
+    });
+    var out = root.querySelector('[data-total]');
+    if (out) {
+      var n = totalGuests();
+      var inf = +val('infants') || 0;
+      var txt = n + (n > 1 ? ' convives' : ' convive');
+      if (inf > 0) { txt += ' et ' + inf + (inf > 1 ? ' nourrissons' : ' nourrisson'); }
+      out.textContent = txt;
+    }
+    syncSummary();
+  }
+
+  root.addEventListener('click', function (ev) {
+    var btn = ev.target.closest('[data-step]');
+    if (!btn) { return; }
+    ev.preventDefault();
+    var input = root.querySelector('input[name="' + btn.getAttribute('data-for') + '"]');
+    var mini = +input.getAttribute('data-min');
+    var maxi = +input.getAttribute('data-max');
+    var v = (+input.value || 0) + (+btn.getAttribute('data-step'));
+    input.value = Math.min(maxi, Math.max(mini, v));
+    clearError('adults');
+    syncCounters();
   });
 
   /* ------------------------------------------------------------------
@@ -169,15 +213,17 @@
   var panels = Array.prototype.slice.call(root.querySelectorAll('.resa__panel'));
   var stepItems = Array.prototype.slice.call(root.querySelectorAll('.steps__item'));
 
-  function showStep(n) {
+  function showStep(n, scroll) {
     step = n;
     panels.forEach(function (p, i) { p.classList.toggle('is-active', i === n); });
     stepItems.forEach(function (it, i) {
       it.setAttribute('data-state', i === n ? 'current' : (i < n ? 'done' : 'todo'));
     });
     if (n === 2) { buildReview(); }
+    // On ne défile qu'au changement d'étape : au chargement, la page reste en haut.
+    if (scroll === false) { return; }
     var top = root.getBoundingClientRect().top + window.scrollY - 110;
-    window.scrollTo({ top: top, behavior: 'smooth' });
+    window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
   }
 
   root.addEventListener('click', function (ev) {
@@ -252,6 +298,7 @@
       nuits: n,
       adultes: val('adults'),
       enfants: val('children') || '0',
+      nourrissons: val('infants') || '0',
       occasion: val('occasion'),
       prenom: val('firstname'),
       nom: val('lastname'),
@@ -398,6 +445,7 @@
   }
 
   /* ---------- Départ ---------- */
+  syncCounters();
   renderCal();
-  showStep(0);
+  showStep(0, false);
 })();
