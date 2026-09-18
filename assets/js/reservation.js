@@ -220,6 +220,10 @@
       it.setAttribute('data-state', i === n ? 'current' : (i < n ? 'done' : 'todo'));
     });
     if (n === 2) { buildReview(); }
+    // Blocs réservés à une étape précise (le rappel de la privatisation).
+    root.querySelectorAll('[data-step-only]').forEach(function (el) {
+      el.hidden = +el.getAttribute('data-step-only') !== n;
+    });
     // On ne défile qu'au changement d'étape : au chargement, la page reste en haut.
     if (scroll === false) { return; }
     var top = root.getBoundingClientRect().top + window.scrollY - 110;

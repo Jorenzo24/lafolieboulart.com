@@ -1066,3 +1066,61 @@ body.nav-open { overflow: hidden; }
    à la taille du chapeau (25px). */
 .prose--lead u { text-decoration-thickness: 1px; text-underline-offset: 6px; }
 .prose--lead strong { font-weight: 600; }
+
+/* ==========================================================================
+   Rappel de ce que comprend la privatisation (sous l'étape 1)
+   ========================================================================== */
+.included { margin-top: clamp(3rem, 7vw, 5rem); padding-top: clamp(2.5rem, 5vw, 4rem); border-top: 1px solid var(--line); }
+.included__head { text-align: center; max-width: 56ch; margin: 0 auto clamp(2rem, 4vw, 3rem); }
+.included__title { font-family: var(--serif); font-size: clamp(1.35rem, 2.2vw, 1.9rem); color: var(--gold); margin: 0 0 .6rem; }
+.included__sub { font-size: 15px; color: var(--ink-soft); margin: 0; }
+
+/* Chiffres clés */
+.facts {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line); margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.fact { text-align: center; padding: clamp(1.1rem, 2.5vw, 1.6rem) .75rem; }
+.fact + .fact { border-left: 1px solid var(--line); }
+.fact__num { display: block; font-family: var(--serif); font-size: clamp(1.5rem, 2.6vw, 2.1rem); color: var(--navy-deep); line-height: 1.1; }
+.fact__label { display: block; margin-top: .4rem; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
+@media (max-width: 760px) {
+  .facts { grid-template-columns: 1fr 1fr; }
+  .fact:nth-child(3) { border-left: 0; }
+  .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* Espaces illustrés */
+.spaces { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.9rem, 2vw, 1.5rem); }
+@media (max-width: 1000px) { .spaces { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px)  { .spaces { grid-template-columns: 1fr; } }
+.space { display: block; color: inherit; }
+.space__media { display: block; position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--paper-warm); }
+.space__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.space:hover .space__media img { transform: scale(1.05); }
+.space__name {
+  font-family: var(--serif); font-size: 17px; color: var(--ink);
+  margin: .85rem 0 .3rem; display: flex; align-items: baseline; gap: .5rem;
+}
+.space__name::after {
+  content: ''; flex: 1; height: 1px; background: var(--line);
+  transition: background .3s var(--ease);
+}
+.space:hover .space__name::after { background: var(--gold); }
+.space__text { display: block; font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+
+/* Services, en liste sobre */
+.perks {
+  margin-top: clamp(2rem, 4vw, 3rem); padding-top: clamp(1.5rem, 3vw, 2rem);
+  border-top: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem 1.75rem;
+}
+.perks li {
+  list-style: none; font-size: 14px; color: var(--ink-soft);
+  display: flex; align-items: center; gap: .5rem;
+}
+.perks li::before {
+  content: ''; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); flex: 0 0 auto;
+}
+.perks { padding-inline: 0; }

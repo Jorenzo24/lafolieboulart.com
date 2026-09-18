@@ -76,6 +76,67 @@ def counter(name, label, note, value, mini, maxi):
                 </div>'''
 
 
+# Chiffres et descriptifs repris du contenu du site : 8 suites (4 suites et
+# 4 chambres deluxe), cinq hectares, bassin de dix mètres, table de 14 convives.
+FACTS = [
+    ('8', 'Suites'),
+    ('5 ha', 'De parc'),
+    ('10 m', 'Bassin de nage'),
+    ('14', 'Convives à table'),
+]
+
+SPACES = [
+    ('Suite-edouard-vii-de-la-Folie-Boulart-.-Print-.-029-scaled.jpg', 'Les suites',
+     'Quatre suites et quatre chambres deluxe, de 34 à 110 m², aux salles de bains '
+     'de marbre de Carrare et bleu Turquin.', 'suites.html'),
+    ('piscine-chateau-boulart-scaled.jpg', 'Le spa',
+     'Bassin de nage de dix mètres sous voûte étoilée, hammam, sauna, jacuzzi, '
+     'salle de soins et salle de sport.', 'soins-bien-etre.html'),
+    ('grand-salon-chateau-boulart.jpg', 'Les réceptions',
+     'Grand salon, grande salle à manger, salle de billard, salon de thé, bar, '
+     'chapelle et chais.', 'receptions.html'),
+    ('Chef-chateau.jpg', 'La table et les services',
+     'Menus du chef, conciergerie, aviation privée, chauffeur, guide et '
+     'coach sportif.', 'services.html'),
+]
+
+PERKS = [
+    'Propriété entière, à usage exclusif',
+    'Monument historique',
+    'Vue sur l’océan et les Pyrénées',
+    'Domotique récompensée en 2022',
+    'Trois nuits minimum',
+]
+
+
+def included():
+    facts = ''.join(
+        f'<div class="fact"><span class="fact__num">{n}</span>'
+        f'<span class="fact__label">{lbl}</span></div>'
+        for n, lbl in FACTS)
+
+    spaces = ''.join(
+        f'''<a class="space" href="{href}">
+          <span class="space__media">{picture(img_src(src), name)}</span>
+          <span class="space__name">{name}</span>
+          <span class="space__text">{text}</span>
+        </a>'''
+        for src, name, text, href in SPACES)
+
+    perks = ''.join(f'<li>{p}</li>' for p in PERKS)
+
+    return f'''<section class="included" aria-labelledby="inc-t">
+        <div class="included__head">
+          <h2 class="included__title" id="inc-t">Ce que comprend la privatisation</h2>
+          <p class="included__sub">La demeure vous est réservée dans son entier, du parc aux
+          combles. Voici ce qui vous attend.</p>
+        </div>
+        <div class="facts">{facts}</div>
+        <div class="spaces">{spaces}</div>
+        <ul class="perks">{perks}</ul>
+      </section>'''
+
+
 def build():
     steps = ''.join(
         (f'<li class="steps__item" data-state="{"current" if i == 0 else "todo"}">'
@@ -140,7 +201,7 @@ def build():
               <p class="field__error" data-error="dates" role="alert" style="margin-top:.75rem"></p>
 
               <h2 class="resa__legend" style="margin-top:2.5rem">Vos convives</h2>
-              <p class="resa__hint">La demeure accueille jusqu’à seize personnes dans ses huit suites.</p>
+              <p class="resa__hint">La demeure compte huit suites, réservées à vous seuls.</p>
 
               <div class="counters">
                 {counter('adults', 'Adultes', 'À partir de 13 ans', 2, 1, 16)}
@@ -247,6 +308,10 @@ def build():
           </aside>
         </div>
       </form>
+
+      <div data-step-only="0">
+        {included()}
+      </div>
 
       <div class="resa__contact">
         <p>Vous préférez nous parler de vive voix ?</p>
