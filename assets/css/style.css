@@ -1061,3 +1061,8 @@ body.nav-open { overflow: hidden; }
 @media (min-width: 900px) {
   .page-hero--facade { min-height: 0; aspect-ratio: 1920 / 653; }
 }
+
+/* Soulignement du texte de positionnement : décalé pour rester élégant
+   à la taille du chapeau (25px). */
+.prose--lead u { text-decoration-thickness: 1px; text-underline-offset: 6px; }
+.prose--lead strong { font-weight: 600; }

@@ -5,10 +5,13 @@ Les deux phrases d'introduction sont celles du module d'origine
 """
 from build import img_src, rule, btn, picture, page, EXTERNAL
 
+# Texte validé par la cliente, repris du module d'origine avec sa mise en
+# forme : « l'entièreté de la propriété » y est soulignée et en gras.
 INTRO_1 = ("Remplissez le formulaire ci-dessous pour nous formuler "
            "une demande de réservation.")
-INTRO_2 = ("Les réservations s’effectuent pour l’entièreté de la propriété "
-           "et pour une durée minimum de 3 jours.")
+INTRO_2 = ('Les réservations s’effectuent pour '
+           '<u><strong>l’entièreté de la propriété</strong></u> '
+           'et pour une durée minimum de 3 jours.')
 
 OCCASIONS = [
     '', 'Séjour de villégiature', 'Réception ou mariage', 'Séminaire ou événement d’entreprise',
@@ -93,7 +96,8 @@ def build():
 <section class="section">
   <div class="wrap">
     <div class="prose prose--center prose--lead reveal">
-      <p>{INTRO_1}<br>{INTRO_2}</p>
+      <p>{INTRO_1}</p>
+      <p>{INTRO_2}</p>
     </div>
   </div>
 </section>
@@ -103,14 +107,6 @@ def build():
     <div class="resa" data-resa data-endpoint="" data-mailto="contact@lafolieboulart.com">
 
       <ol class="steps" aria-label="Étapes de la demande">{steps}</ol>
-
-      <div class="exclusive">
-        <p class="exclusive__label">Privatisation exclusive</p>
-        <p>La Folie Boulart se loue <strong>dans son intégralité</strong>, à un seul hôte à la fois.
-        Les huit suites, le spa, les salons et les jardins vous sont réservés pour la durée
-        de votre séjour.</p>
-        <p>Nous ne proposons pas de chambre à l’unité : la demeure ne se partage pas.</p>
-      </div>
 
       <div class="notice">
         {ICON_INFO}
