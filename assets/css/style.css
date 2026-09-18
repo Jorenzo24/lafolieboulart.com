@@ -925,7 +925,7 @@ body.nav-open { overflow: hidden; }
   transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
   width: 100%;
 }
-.field textarea { min-height: 130px; resize: vertical; }
+.field textarea { min-height: 190px; resize: vertical; line-height: 1.6; }
 .field input:focus, .field select:focus, .field textarea:focus {
   outline: none; border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(197,149,46,.15);

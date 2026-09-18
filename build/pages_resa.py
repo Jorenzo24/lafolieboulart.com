@@ -30,8 +30,9 @@ def chevron(direction):
             f'aria-hidden="true"><path d="{d}"/></svg>')
 
 
-def field(name, label, kind='text', required=False, **kw):
+def field(name, label, kind='text', required=False, hide_label=False, **kw):
     req = ' <span class="req" aria-hidden="true">*</span>' if required else ''
+    label_cls = 'sr-only' if hide_label else 'field__label'
     attrs = ' required' if required else ''
     for k, v in kw.items():
         attrs += f' {k.replace("_", "-")}="{v}"'
@@ -45,7 +46,7 @@ def field(name, label, kind='text', required=False, **kw):
     else:
         control = f'<input id="{name}" name="{name}" type="{kind}"{attrs}>'
     return f'''<div class="field">
-        <label class="field__label" for="{name}">{label}{req}</label>
+        <label class="{label_cls}" for="{name}">{label}{req}</label>
         {control}
         <p class="field__error" data-error="{name}" role="alert"></p>
       </div>'''
@@ -174,8 +175,10 @@ def build():
                 {field('email', 'E-mail', 'email', True, autocomplete='email')}
                 {field('phone', 'Téléphone', 'tel', False, autocomplete='tel')}
               </div>
-              {field('message', 'Votre projet', 'textarea', False,
-                     placeholder='Dites-nous en quelques mots ce que vous imaginez : occasion, services souhaités, table du chef, soins au spa…')}
+              <h2 class="resa__legend" style="margin-top:2.25rem">Votre message</h2>
+              <p class="resa__hint">Dites-nous ce que vous imaginez : nous bâtirons la proposition autour.</p>
+              {field('message', 'Votre message', 'textarea', False, hide_label=True,
+                     placeholder='Occasion célébrée, services souhaités, table du chef, soins au spa, arrivée en hélicoptère… Écrivez-nous librement.')}
 
               <p style="position:absolute;left:-9999px" aria-hidden="true">
                 <label for="website">Ne pas remplir</label>
