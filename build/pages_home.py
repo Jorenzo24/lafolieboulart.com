@@ -72,7 +72,7 @@ def build():
         f"""{title(T(P, 10), 'end')}
       <div class="prose">{paras(T(P, 11))}{paras(T(P, 12))}{paras(T(P, 13))}</div>
       {btn_row(btn(url(A(P, 14)), T(P, 15)), 'end')}""",
-        picture(entree_img, entree_alt), middle=True)}
+        picture(entree_img, entree_alt), middle=True, flip=True)}
   </div>
 </section>
 
@@ -111,15 +111,20 @@ def build():
 
 <section class="section">
   <div class="wrap-1140">
-    {split(
-        f"""{title(T(P, 55), 'start')}
-      <div class="prose">{paras(T(P, 56))}</div>
-      {btn_row(btn(url(A(P, 57)), T(P, 58)), 'end')}
-      {picture(chef_img, chef_alt)}""",
-        f"""{picture(the_img, the_alt)}
-      {title(T(P, 61), 'start')}
-      <div class="prose">{paras(T(P, 62))}</div>
-      {btn_row(btn(url(A(P, 63)), T(P, 64)), 'end')}""")}
+    <div class="duo-cross">
+      <div class="duo-cross__a duo-cross__txt reveal">
+        {title(T(P, 55), 'start')}
+        <div class="prose">{paras(T(P, 56))}</div>
+        {btn_row(btn(url(A(P, 57)), T(P, 58)), 'end')}
+      </div>
+      <div class="duo-cross__b reveal">{picture(chef_img, chef_alt)}</div>
+      <div class="duo-cross__c duo-cross__txt reveal">
+        {title(T(P, 61), 'start')}
+        <div class="prose">{paras(T(P, 62))}</div>
+        {btn_row(btn(url(A(P, 63)), T(P, 64)), 'end')}
+      </div>
+      <div class="duo-cross__d reveal">{picture(the_img, the_alt)}</div>
+    </div>
   </div>
 </section>
 
@@ -150,7 +155,7 @@ def build():
         f"""{title(T(P, 80), 'end', ink=True)}
       <div class="prose">{paras(T(P, 81))}</div>
       {btn_row(btn(url(A(P, 82)), T(P, 83)), 'end')}""",
-        picture(baigneuses_img, baigneuses_alt), middle=True)}
+        picture(baigneuses_img, baigneuses_alt), middle=True, flip=True)}
   </div>
 </section>
 

@@ -460,17 +460,21 @@ def showcase(row2, row3, carousel_imgs=None, crest=True):
 </div>'''
 
 
-def split(col1, col2, middle=False, ratio=None):
+def split(col1, col2, middle=False, ratio=None, flip=False):
     """Deux colonnes, comme les sections d'origine.
 
     middle : centrage vertical (align-items:center dans le CSS source).
     ratio  : '45-55' pour la section Réceptions.
+    flip   : sur mobile, la seconde colonne remonte avant la première —
+             à utiliser quand c'est elle qui porte le visuel.
     """
     cls = 'split'
     if middle:
         cls += ' split--middle'
     if ratio:
         cls += f' split--{ratio}'
+    if flip:
+        cls += ' split--flip'
     return f'''<div class="{cls}">
   <div class="split__col reveal">{col1}</div>
   <div class="split__col reveal reveal-d1">{col2}</div>
