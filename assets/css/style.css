@@ -775,10 +775,12 @@ body.nav-open { overflow: hidden; }
 /* à cheval sur le bord de l'image, comme l'original */
 .carousel__btn--prev { left: -25px; }
 .carousel__btn--next { right: -25px; }
+/* Sur mobile les flèches passent à l'intérieur du cadre : à cheval, elles
+   débordaient de 11px et provoquaient un défilement horizontal. */
 @media (max-width: 767px) {
-  .carousel__btn { width: 42px; height: 42px; }
-  .carousel__btn--prev { left: -14px; }
-  .carousel__btn--next { right: -14px; }
+  .carousel__btn { width: 40px; height: 40px; }
+  .carousel__btn--prev { left: 8px; }
+  .carousel__btn--next { right: 8px; }
 }
 .carousel__dots { display: none; }
 
@@ -1099,6 +1101,15 @@ body.nav-open { overflow: hidden; }
 }
 .inc-part__head::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .inc-part__count { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-deep); white-space: nowrap; }
+
+/* Sur petit écran l'intitulé passe sous le titre : en nowrap à côté, il
+   débordait de 57px. Le filet devient alors une ligne pleine largeur. */
+@media (max-width: 680px) {
+  .inc-part__head { display: block; margin-bottom: 1.25rem; }
+  .inc-part__title { white-space: normal; }
+  .inc-part__count { display: block; white-space: normal; margin-top: .3rem; }
+  .inc-part__head::after { display: block; width: 100%; height: 1px; margin-top: .9rem; }
+}
 
 /* Les huit suites : grille de vignettes, nom et surface */
 .suites-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(.8rem, 1.6vw, 1.2rem); }
