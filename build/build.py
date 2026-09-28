@@ -415,7 +415,7 @@ def feature(title, body, tid=None):
 CREST = img_src('logo-or2-1024x792.png')
 
 
-def showcase(row2, row3, carousel_imgs=None, crest=True):
+def showcase(row2, row3, carousel_imgs=None, crest=True, carousel_class=''):
     """Bloc galerie de l'original : médaillon en débord, rangée de 2, rangée de 3,
     puis éventuellement le carrousel à trois vues."""
     crest_html = ''
@@ -441,7 +441,7 @@ def showcase(row2, row3, carousel_imgs=None, crest=True):
             f'aria-label="{i + 1} sur {len(carousel_imgs)}" data-lightbox>{picture(src, alt)}</div>'
             for i, (src, alt) in enumerate(carousel_imgs))
         car = f'''
-  <div class="carousel" data-carousel data-autoplay="5000" tabindex="0" role="region"
+  <div class="carousel {carousel_class}" data-carousel data-autoplay="5000" tabindex="0" role="region"
        aria-roledescription="carrousel" aria-label="Galerie photos">
     <div class="carousel__viewport">
       <div class="carousel__track">
@@ -499,3 +499,31 @@ def vimeo(video_id, label):
             f'&amp;title=0&amp;portrait=0&amp;byline=0" '
             f'title="{e(label)}" allow="autoplay; fullscreen; picture-in-picture" '
             f'allowfullscreen loading="lazy"></iframe></div>')
+
+# Les huit suites : nom, surface, visuel et page dédiée. Repris de la page
+# « Nos suites » du site d'origine.
+SUITES_NAMED = [
+    ('Édouard VII', '110 m²', 'Suite-edouard-vii-de-la-Folie-Boulart-.-Print-.-029-scaled.jpg', 'suite-edouard-vii.html'),
+    ('COCO', '105 m²', 'Chambre-COCO-scaled.jpg', 'suite-coco.html'),
+    ('Wanamaker', '80 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-022-scaled.jpg', 'suite-wanamaker.html'),
+    ('Les Petits Points', '55 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-042-scaled.jpg', 'suite-les-petits-points.html'),
+    ('Le Phare', '45 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-039-scaled.jpg', 'suite-le-phare.html'),
+    ('Les Estampes', '45 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-040-scaled.jpg', 'suite-les-estampes.html'),
+    ('Oscar II', '40 m²', 'LFB6-scaled.jpg', 'suite-oscar-ii.html'),
+    ('L\u2019Explorateur', '34 m²', 'Chateau-de-la-Folie-Boulart-.-Print-.-025-scaled.jpg', 'suite-lexplorateur.html'),
+]
+
+
+def suites_named(more=None):
+    """Grille compacte des huit suites, chacune nommée et chiffrée."""
+    cards = ''.join(
+        f'''<a class="suite-card" href="{href}">
+      <span class="suite-card__media">
+        {picture(img_src(img), name)}
+        <span class="suite-card__area">{area}</span>
+      </span>
+      <span class="suite-card__name">{e(name)}</span>
+    </a>'''
+        for name, area, img, href in SUITES_NAMED)
+    tail = f'<p class="suites-named__more">{more}</p>' if more else ''
+    return f'<div class="suites-named">{cards}</div>{tail}'

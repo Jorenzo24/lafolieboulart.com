@@ -1,7 +1,7 @@
 """Page d'accueil — structure et mise en forme reprises du site d'origine."""
 from build import (
     T, IM, A, img_src, url, e, paras, lines, rule, btn, picture,
-    page, showcase, split, title, btn_row, vimeo,
+    page, showcase, split, title, btn_row, vimeo, suites_named,
 )
 
 P = 'home'
@@ -85,7 +85,10 @@ def build():
       <p style="margin-top:1.75rem">{btn(url(A(P, 21)), T(P, 22))}</p>
     </div>
   </div>
-  {showcase(suites_2, None, suites_carousel)}
+  {showcase(suites_2, None, suites_carousel, carousel_class='only-desktop')}
+  <div class="wrap-1300 only-mobile" style="margin-top:6px">
+    {suites_named(btn('suites.html', 'Découvrir nos suites'))}
+  </div>
 </section>
 
 <section class="banner">

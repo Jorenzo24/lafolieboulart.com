@@ -4,7 +4,7 @@ import os
 
 from build import (
     C, T, IM, A, img_src, url, e, paras, lines, rule, btn, picture,
-    slider, gallery, duo, feature, page_hero, page,
+    slider, gallery, duo, feature, page_hero, page, suites_named,
 )
 
 
@@ -92,8 +92,11 @@ def build_suites():
 
 <section class="section section--paper">
   <div class="wrap-wide">
-    <div class="cards">
+    <div class="cards only-desktop">
 {cards_html}
+    </div>
+    <div class="only-mobile">
+      {suites_named()}
     </div>
   </div>
 </section>

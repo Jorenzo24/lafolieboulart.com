@@ -325,7 +325,7 @@ body.nav-open { overflow: hidden; }
   .prose--lead { font-size: 20px; line-height: 32px; }
 }
 @media (max-width: 767px) {
-  .intro__title { font-size: 21px; line-height: 1.5; }
+  .intro__title { font-size: 27px; line-height: 1.4; }
 }
 .hero__inner { position: relative; text-align: center; padding: calc(var(--header-h) + 3rem) var(--gutter) 5rem; }
 .hero__logo { width: clamp(190px, 26vw, 330px); margin: 0 auto 2rem; }
@@ -412,8 +412,8 @@ body.nav-open { overflow: hidden; }
 /* Chapeau du héros : Canela 25/40, noir, centré (original) */
 .prose--lead { font-size: 25px; line-height: 40px; color: #000; text-align: center; }
 @media (max-width: 767px) {
-  .prose { text-align: center; font-size: 15px; line-height: 2; }
-  .prose--lead { font-size: 15px; line-height: 2; }
+  .prose { text-align: center; font-size: 17px; line-height: 1.85; }
+  .prose--lead { font-size: 19px; line-height: 1.75; }
 }
 
 /* Duo texte / image */
@@ -554,6 +554,7 @@ body.nav-open { overflow: hidden; }
   position: relative; padding-left: 1.15rem; margin-bottom: .6rem;
   font-size: .97rem; line-height: 1.6; color: var(--ink-soft);
 }
+@media (max-width: 767px) { .specs__list li { font-size: 1.0625rem; line-height: 1.7; } }
 .specs__list li::before {
   content: ''; position: absolute; left: 0; top: .66em;
   width: 5px; height: 1px; background: var(--gold);
@@ -706,9 +707,9 @@ body.nav-open { overflow: hidden; }
   }
   .hero--film .hero__media {
     position: relative; inset: auto;
-    aspect-ratio: 1600 / 670;
+    aspect-ratio: 16 / 9;
   }
-  .hero--film .hero__media video { object-fit: contain; background: #0d1520; }
+  .hero--film .hero__media video { object-fit: cover; background: #0d1520; }
   .hero--film .hero__media::after { display: none; }
   .hero--film .hero-scroll { display: none; }
   .header:not(.is-stuck) { background: rgba(13,21,32,.92); }
@@ -860,6 +861,7 @@ body.nav-open { overflow: hidden; }
 }
 @media (max-width: 899px) { .split__col img.owners__portrait { width: 62%; max-width: 340px; } }
 .quote { text-align: center; color: #000; font-family: var(--serif); font-size: 15px; line-height: 1.9; }
+@media (max-width: 767px) { .quote { font-size: 17px; line-height: 1.85; } }
 .quote--mark::before {
   content: '\201C'; display: block;
   font-family: Georgia, 'Times New Roman', serif; font-weight: 700;
@@ -1215,3 +1217,38 @@ body.nav-open { overflow: hidden; }
   background: var(--gold); flex: 0 0 auto;
 }
 .perks { padding-inline: 0; }
+
+/* ==========================================================================
+   Les suites en vignettes nommées — version compacte pour mobile
+   Deux colonnes, format portrait ramassé : on identifie chaque suite sans
+   dérouler huit grandes cartes.
+   ========================================================================== */
+.suites-named { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 8px; }
+.suite-card { display: block; color: inherit; }
+.suite-card__media {
+  display: block; position: relative; aspect-ratio: 4 / 5;
+  overflow: hidden; background: var(--paper-warm);
+}
+.suite-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.suite-card__media::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(13,21,32,.55), rgba(13,21,32,0) 55%);
+}
+.suite-card__area {
+  position: absolute; left: 0; right: 0; bottom: .55rem; z-index: 1;
+  text-align: center; font-family: var(--serif); font-size: 13px;
+  letter-spacing: .18em; color: #fff;
+}
+.suite-card__name {
+  display: block; padding-top: .5rem; text-align: center;
+  font-family: var(--serif); font-size: 15px; line-height: 1.3; color: var(--ink);
+}
+.suites-named__more { text-align: center; margin-top: 1.75rem; }
+
+/* La version compacte ne s'affiche que sur mobile ; au-delà, on garde le
+   carrousel de l'accueil et les grandes cartes de la page « Nos suites ». */
+.only-mobile { display: none; }
+@media (max-width: 899px) {
+  .only-mobile { display: block; }
+  .only-desktop { display: none !important; }
+}
