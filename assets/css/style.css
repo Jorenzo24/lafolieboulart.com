@@ -372,8 +372,14 @@ body.nav-open { overflow: hidden; }
 /* ==========================================================================
    Sections
    ========================================================================== */
-.section { padding: clamp(3.75rem, 7vw, 90px) 0 0; }
-.section:last-of-type { padding-bottom: clamp(3.75rem, 7vw, 90px); }
+/* Plus d'air sur mobile que sur desktop : tout y est empilé, la séparation
+   entre sections doit donc être portée par le seul espace vertical. */
+.section { padding: 96px 0 0; }
+.section:last-of-type { padding-bottom: 96px; }
+@media (min-width: 900px) {
+  .section { padding-top: 90px; }
+  .section:last-of-type { padding-bottom: 90px; }
+}
 .section--tight { padding: clamp(2.5rem, 5vw, 4.5rem) 0; }
 .section--paper { background: var(--paper); }
 .section--warm { background: var(--paper-warm); }
@@ -728,6 +734,7 @@ body.nav-open { overflow: hidden; }
    Médaillon doré en débord, rangée de 2 puis rangée de 3, puis carrousel.
    ========================================================================== */
 .showcase { max-width: 1300px; margin: 0 auto; padding-inline: 3px; }
+@media (max-width: 899px) { .showcase { margin-bottom: 1.5rem; } }
 .showcase__band { position: relative; margin-top: clamp(3rem, 6vw, 100px); }
 
 /* Médaillon : monogramme doré sur ellipse blanche, à cheval sur les images */
@@ -801,6 +808,20 @@ body.nav-open { overflow: hidden; }
 /* Sur mobile, un bouton seul en pleine largeur se centre. */
 @media (max-width: 899px) {
   .btn-row, .btn-row--start, .btn-row--end { text-align: center; }
+}
+
+/* Une fois empilés, les titres de colonne ouvrent de vraies sections : ils
+   reçoivent le filet doré de la charte, comme « Nos Suites » ou « SPA ».
+   Sans lui, rien ne signalait la rupture après une galerie pleine largeur. */
+@media (max-width: 899px) {
+  .duo-cross__txt > .section__title::before,
+  .split__col > .section__title::before {
+    content: '';
+    display: block;
+    width: 78px; height: 1px;
+    margin: 0 auto 2rem;
+    background: linear-gradient(to right, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+  }
 }
 
 /* Empilement mobile : quand le visuel est en seconde colonne, il remonte
