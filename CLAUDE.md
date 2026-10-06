@@ -87,8 +87,12 @@ GitHub Pages publie depuis `main`. Un push sur `main` déclenche le build.
 
 Site en ligne : https://jorenzo24.github.io/lafolieboulart.com/
 
-**Depuis une session cloud**, le travail part sur une branche et une pull
-request : il faut la fusionner dans `main` pour que le site se mette à jour.
+**Pousser directement sur `main`**, sans branche ni pull request. Le client
+travaille seul sur ce site et veut voir ses retours en ligne immédiatement :
+une étape de validation supplémentaire ne lui apporte rien.
+
+Avant chaque push : `python3 build/make.py`, puis `verify.py` et
+`check_assets.py`. Ce sont eux le garde-fou, pas la pull request.
 
 Le dépôt est en **préproduction** : `STAGING = True` dans `build/build.py`
 ajoute `noindex` à chaque page, et `robots.txt` bloque l'exploration, pour ne
