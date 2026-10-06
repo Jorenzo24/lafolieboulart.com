@@ -869,7 +869,13 @@ body.nav-open { overflow: hidden; }
   aspect-ratio: 1; object-fit: cover;
 }
 @media (max-width: 899px) { .split__col img.owners__portrait { width: 62%; max-width: 340px; } }
-.quote { text-align: center; color: #000; font-family: var(--serif); font-size: 15px; line-height: 1.9; }
+/* Justifié comme le reste des blocs de texte, et centré sous 767px —
+   même règle que .prose, pour éviter les rivières en colonne étroite. */
+.quote { text-align: justify; color: #000; font-family: var(--serif); font-size: 15px; line-height: 1.9; }
+@media (max-width: 767px) { .quote { text-align: center; } }
+/* Le guillemet, la phrase d'ouverture et la signature restent centrés. */
+.quote--mark::before { text-align: center; }
+.quote__lead { text-align: center; }
 @media (max-width: 767px) { .quote { font-size: 17px; line-height: 1.85; } }
 .quote--mark::before {
   content: '\201C'; display: block;
@@ -880,7 +886,7 @@ body.nav-open { overflow: hidden; }
 .quote p { margin: 0 0 1.2em; }
 .quote p:last-child { margin-bottom: 0; }
 .quote__author {
-  display: block; margin-top: 1.5rem; font-style: normal;
+  display: block; margin-top: 1.5rem; font-style: normal; text-align: center;
   color: var(--navy-deep); font-family: var(--serif); font-size: 18px;
 }
 

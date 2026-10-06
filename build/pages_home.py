@@ -174,7 +174,7 @@ def build():
       </div>
       <div class="split__col reveal reveal-d1">
         <blockquote class="quote quote--mark">
-          <p>{e(mots_titre)}</p>
+          <p class="quote__lead">{e(mots_titre)}</p>
           {paras(mots_corps)}
         </blockquote>
       </div>
