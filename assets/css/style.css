@@ -832,19 +832,28 @@ body.nav-open { overflow: hidden; }
   .split--flip .split__col:last-child { order: 1; }
 }
 
-/* Composition en quinconce : texte, visuel, texte, visuel.
-   L'ordre du document suit la lecture mobile ; le placement en grille
-   rétablit le croisement voulu sur grand écran. */
-.duo-cross { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
-.duo-cross > * { min-width: 0; }
+/* Composition croisée — deux colonnes au flux indépendant, comme l'original.
+   Une grille 2x2 alignerait les lignes entre elles et creuserait un vide sous
+   la colonne la plus courte ; ici chaque colonne coule librement.
+   Sur mobile, display:contents fait remonter les quatre blocs au niveau du
+   conteneur pour qu'ils s'ordonnent texte, visuel, texte, visuel. */
+.duo-cross { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); align-items: start; }
 .duo-cross img { width: 100%; display: block; }
+.duo-cross__col { display: flex; flex-direction: column; gap: clamp(1.5rem, 3vw, 2.5rem); min-width: 0; }
 .duo-cross__txt { display: flex; flex-direction: column; gap: clamp(1rem, 2vw, 1.6rem); }
+
 @media (min-width: 900px) {
-  .duo-cross { grid-template-columns: 1fr 1fr; align-items: start; column-gap: clamp(1.5rem, 3vw, 2.5rem); }
-  .duo-cross__a { grid-column: 1; grid-row: 1; }
-  .duo-cross__b { grid-column: 1; grid-row: 2; }
-  .duo-cross__c { grid-column: 2; grid-row: 2; }
-  .duo-cross__d { grid-column: 2; grid-row: 1; }
+  .duo-cross { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 899px) {
+  .duo-cross { display: flex; flex-direction: column; }
+  .duo-cross__col { display: contents; }
+  /* texte, visuel, texte, visuel */
+  .duo-cross__a { order: 1; }
+  .duo-cross__b { order: 2; }
+  .duo-cross__c { order: 3; }
+  .duo-cross__d { order: 4; }
+  .duo-cross > * > * + * { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
 }
 
 /* Vidéo 3D (lecteur Vimeo) */
