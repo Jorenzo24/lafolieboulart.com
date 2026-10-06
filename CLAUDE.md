@@ -100,6 +100,23 @@ git log --oneline -3      # voir ce qui a été fait ailleurs
 Si `--ff-only` refuse, c'est qu'il y a des commits locaux non poussés : le
 signaler au client plutôt que de fusionner d'autorité.
 
+## Avant tout push : vérifier que le distant n'a pas avancé
+
+Une session locale peut rester ouverte des heures pendant que le client
+travaille depuis son téléphone. Le `git pull` d'ouverture ne protège donc que
+le début de session.
+
+**Avant chaque commit ou push, vérifier systématiquement :**
+
+```bash
+git fetch origin
+git log --oneline HEAD..origin/main    # vide = rien de nouveau ailleurs
+```
+
+Si des commits apparaissent, s'arrêter : le dire au client, lui montrer ce qui
+a été fait depuis l'autre appareil, et attendre sa réponse. Ne jamais fusionner
+ni forcer de soi-même — c'est ainsi qu'on écrase du travail.
+
 ## Déploiement
 
 GitHub Pages publie depuis `main`. Un push sur `main` déclenche le build.
