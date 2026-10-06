@@ -81,6 +81,25 @@ concurrent** : trois sources parallèles avaient produit des écarts de 40 à
 - Le film d'accueil est en cinémascope : cadré en 16/9 sur mobile, ce qui
   préserve les titres incrustés. Ne pas rogner davantage.
 
+## Au début de chaque session : se synchroniser
+
+Le client travaille depuis plusieurs appareils — ordinateur, téléphone,
+navigateur. **Commencer toute session locale par `git pull`**, avant la moindre
+modification.
+
+Sans cela, une session locale repart d'une copie périmée dès que du travail a
+été fait depuis un autre appareil : les modifications se perdent ou le push
+échoue. En session cloud, le dépôt est cloné à chaque fois, la question ne se
+pose pas.
+
+```bash
+git pull --ff-only        # rien à fusionner, donc une avance rapide suffit
+git log --oneline -3      # voir ce qui a été fait ailleurs
+```
+
+Si `--ff-only` refuse, c'est qu'il y a des commits locaux non poussés : le
+signaler au client plutôt que de fusionner d'autorité.
+
 ## Déploiement
 
 GitHub Pages publie depuis `main`. Un push sur `main` déclenche le build.
