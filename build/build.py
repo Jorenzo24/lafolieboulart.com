@@ -546,10 +546,11 @@ def suites_named(more=None):
         f'''<a class="suite-card" href="{href}">
       <span class="suite-card__media">
         {picture(img_src(img), name)}
-        <span class="suite-card__num" aria-hidden="true"></span>
-        <span class="suite-card__area">{area}</span>
+        <span class="suite-card__band">
+          <span class="suite-card__name">{e(name)}</span>
+          <span class="suite-card__area">{area}</span>
+        </span>
       </span>
-      <span class="suite-card__name">{e(name)}</span>
     </a>'''
         for name, area, img, href in SUITES_NAMED)
     tail = f'<p class="suites-named__more">{more}</p>' if more else ''

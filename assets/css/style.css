@@ -47,6 +47,13 @@
   --header-h-small: 68px;
 
   --ease: cubic-bezier(.22, .61, .36, 1);
+
+  /* Écart entre deux sections — valeur unique, référencée partout.
+     Plus large sur mobile : tout y est empilé, l'espace seul sépare. */
+  --gap-section: 96px;
+}
+@media (min-width: 900px) {
+  :root { --gap-section: 90px; }
 }
 
 /* ---------- Reset ---------- */
@@ -372,15 +379,11 @@ body.nav-open { overflow: hidden; }
 /* ==========================================================================
    Sections
    ========================================================================== */
-/* Plus d'air sur mobile que sur desktop : tout y est empilé, la séparation
-   entre sections doit donc être portée par le seul espace vertical. */
-.section { padding: 96px 0 0; }
-.section:last-of-type { padding-bottom: 96px; }
-@media (min-width: 900px) {
-  .section { padding-top: 90px; }
-  .section:last-of-type { padding-bottom: 90px; }
-}
-.section--tight { padding: clamp(2.5rem, 5vw, 4.5rem) 0; }
+.section { padding: var(--gap-section) 0 0; }
+.section:last-of-type { padding-bottom: var(--gap-section); }
+/* Les galeries intercalées suivent la même règle que les sections :
+   padding en tête seulement, l'écart restant porté par le bloc suivant. */
+.section--tight { padding: var(--gap-section) 0 0; }
 .section--paper { background: var(--paper); }
 .section--warm { background: var(--paper-warm); }
 .section--navy { background: var(--navy); color: #fff; }
@@ -578,8 +581,7 @@ body.nav-open { overflow: hidden; }
 .banner {
   position: relative; display: grid; place-items: center; text-align: center;
   min-height: clamp(24rem, 46vw, 34rem); overflow: hidden; background: #0d1520;
-  /* même respiration que l'écart entre deux sections */
-  margin-top: clamp(2.5rem, 6vw, 90px);
+  margin-top: var(--gap-section);
 }
 .banner__media { position: absolute; inset: 0; }
 .banner__media img { width: 100%; height: 100%; object-fit: cover; }
@@ -735,7 +737,6 @@ body.nav-open { overflow: hidden; }
    Médaillon doré en débord, rangée de 2 puis rangée de 3, puis carrousel.
    ========================================================================== */
 .showcase { max-width: 1300px; margin: 0 auto; padding-inline: 3px; }
-@media (max-width: 899px) { .showcase { margin-bottom: 1.5rem; } }
 .showcase__band { position: relative; margin-top: clamp(3rem, 6vw, 100px); }
 
 /* Médaillon : monogramme doré sur ellipse blanche, à cheval sur les images */
@@ -1240,10 +1241,9 @@ body.nav-open { overflow: hidden; }
    ========================================================================== */
 .suites-named {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: clamp(1.4rem, 4vw, 2rem) clamp(.7rem, 2.5vw, 1rem);
-  counter-reset: suite;
+  gap: clamp(.9rem, 3vw, 1.4rem) clamp(.7rem, 2.5vw, 1rem);
 }
-.suite-card { display: block; color: inherit; counter-increment: suite; }
+.suite-card { display: block; color: inherit; }
 
 .suite-card__media {
   display: block; position: relative; aspect-ratio: 4 / 5;
@@ -1254,47 +1254,46 @@ body.nav-open { overflow: hidden; }
   transition: transform .9s var(--ease);
 }
 .suite-card:hover .suite-card__media img { transform: scale(1.05); }
+/* Dégradé doux, pour que le bandeau ne tranche pas sur l'image */
 .suite-card__media::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(13,21,32,.6), rgba(13,21,32,0) 48%);
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(13,21,32,.5), rgba(13,21,32,0) 42%);
 }
-/* Liseré doré en retrait, qui se révèle au survol */
+/* Liseré en retrait, révélé au survol */
 .suite-card__media::before {
-  content: ''; position: absolute; inset: 7px; z-index: 2;
+  content: ''; position: absolute; inset: 7px; z-index: 3;
   border: 1px solid rgba(255,255,255,.4);
   opacity: 0; transition: opacity .4s var(--ease), inset .4s var(--ease);
   pointer-events: none;
 }
 .suite-card:hover .suite-card__media::before { opacity: 1; inset: 11px; }
 
-/* Numérotation éditoriale, en haut du visuel */
-.suite-card__num {
-  position: absolute; top: .7rem; left: .8rem; z-index: 2;
-  font-family: var(--serif); font-size: 11px; letter-spacing: .2em;
-  color: rgba(255,255,255,.82);
+/* Bandeau posé en bas du visuel : le nom y est lisible sur toutes les photos */
+.suite-card__band {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: .75rem .6rem .8rem;
+  background: rgba(13,21,32,.58);
+  backdrop-filter: blur(3px);
+  text-align: center;
+  transition: background .35s var(--ease);
 }
-.suite-card__num::before { content: '0' counter(suite); }
-
-.suite-card__area {
-  position: absolute; left: 0; right: 0; bottom: .6rem; z-index: 2;
-  text-align: center; font-family: var(--serif); font-size: 12px;
-  letter-spacing: .2em; color: var(--gold-light);
-}
-
-/* Le nom, sous un court filet doré */
-.suite-card__name {
-  display: block; padding-top: .85rem; text-align: center;
-  font-family: var(--serif); font-size: 15px; line-height: 1.3;
-  letter-spacing: .04em; color: var(--ink);
-  transition: color .3s var(--ease);
-}
-.suite-card__name::before {
-  content: ''; display: block; width: 26px; height: 1px;
-  margin: 0 auto .7rem; background: var(--gold);
+.suite-card__band::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 34px; height: 1px; background: var(--gold);
   transition: width .4s var(--ease);
 }
-.suite-card:hover .suite-card__name { color: var(--gold-deep); }
-.suite-card:hover .suite-card__name::before { width: 46px; }
+.suite-card:hover .suite-card__band { background: rgba(13,21,32,.72); }
+.suite-card:hover .suite-card__band::before { width: 64px; }
+
+.suite-card__name {
+  display: block; font-family: var(--serif); font-size: 15px;
+  line-height: 1.25; letter-spacing: .04em; color: #fff;
+}
+.suite-card__area {
+  display: block; margin-top: .22rem;
+  font-family: var(--serif); font-size: 11px;
+  letter-spacing: .22em; color: var(--gold-light);
+}
 
 .suites-named__more { text-align: center; margin-top: 2.25rem; }
 
