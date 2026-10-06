@@ -1238,27 +1238,65 @@ body.nav-open { overflow: hidden; }
    Deux colonnes, format portrait ramassé : on identifie chaque suite sans
    dérouler huit grandes cartes.
    ========================================================================== */
-.suites-named { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 8px; }
-.suite-card { display: block; color: inherit; }
+.suites-named {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(1.4rem, 4vw, 2rem) clamp(.7rem, 2.5vw, 1rem);
+  counter-reset: suite;
+}
+.suite-card { display: block; color: inherit; counter-increment: suite; }
+
 .suite-card__media {
   display: block; position: relative; aspect-ratio: 4 / 5;
   overflow: hidden; background: var(--paper-warm);
 }
-.suite-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.suite-card__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .9s var(--ease);
+}
+.suite-card:hover .suite-card__media img { transform: scale(1.05); }
 .suite-card__media::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(13,21,32,.55), rgba(13,21,32,0) 55%);
+  background: linear-gradient(to top, rgba(13,21,32,.6), rgba(13,21,32,0) 48%);
 }
+/* Liseré doré en retrait, qui se révèle au survol */
+.suite-card__media::before {
+  content: ''; position: absolute; inset: 7px; z-index: 2;
+  border: 1px solid rgba(255,255,255,.4);
+  opacity: 0; transition: opacity .4s var(--ease), inset .4s var(--ease);
+  pointer-events: none;
+}
+.suite-card:hover .suite-card__media::before { opacity: 1; inset: 11px; }
+
+/* Numérotation éditoriale, en haut du visuel */
+.suite-card__num {
+  position: absolute; top: .7rem; left: .8rem; z-index: 2;
+  font-family: var(--serif); font-size: 11px; letter-spacing: .2em;
+  color: rgba(255,255,255,.82);
+}
+.suite-card__num::before { content: '0' counter(suite); }
+
 .suite-card__area {
-  position: absolute; left: 0; right: 0; bottom: .55rem; z-index: 1;
-  text-align: center; font-family: var(--serif); font-size: 13px;
-  letter-spacing: .18em; color: #fff;
+  position: absolute; left: 0; right: 0; bottom: .6rem; z-index: 2;
+  text-align: center; font-family: var(--serif); font-size: 12px;
+  letter-spacing: .2em; color: var(--gold-light);
 }
+
+/* Le nom, sous un court filet doré */
 .suite-card__name {
-  display: block; padding-top: .5rem; text-align: center;
-  font-family: var(--serif); font-size: 15px; line-height: 1.3; color: var(--ink);
+  display: block; padding-top: .85rem; text-align: center;
+  font-family: var(--serif); font-size: 15px; line-height: 1.3;
+  letter-spacing: .04em; color: var(--ink);
+  transition: color .3s var(--ease);
 }
-.suites-named__more { text-align: center; margin-top: 1.75rem; }
+.suite-card__name::before {
+  content: ''; display: block; width: 26px; height: 1px;
+  margin: 0 auto .7rem; background: var(--gold);
+  transition: width .4s var(--ease);
+}
+.suite-card:hover .suite-card__name { color: var(--gold-deep); }
+.suite-card:hover .suite-card__name::before { width: 46px; }
+
+.suites-named__more { text-align: center; margin-top: 2.25rem; }
 
 /* La version compacte ne s'affiche que sur mobile ; au-delà, on garde le
    carrousel de l'accueil et les grandes cartes de la page « Nos suites ». */
@@ -1267,3 +1305,15 @@ body.nav-open { overflow: hidden; }
   .only-mobile { display: block; }
   .only-desktop { display: none !important; }
 }
+
+/* Carrousel solo : une seule vue, quelle que soit la largeur. Utilisé sous le
+   médaillon sur mobile, là où une image fixe paraissait figée. */
+.carousel--solo { margin-top: 0; }
+.carousel--solo .carousel__slide { flex-basis: 100%; padding: 0; }
+.carousel--solo .carousel__slide img { aspect-ratio: 1024 / 683; }
+.carousel--solo .carousel__dots { display: flex; justify-content: center; gap: .5rem; margin-top: .9rem; }
+.carousel--solo .carousel__dot {
+  width: 6px; height: 6px; border-radius: 50%; background: rgba(32,32,32,.2);
+  transition: background .3s var(--ease);
+}
+.carousel--solo .carousel__dot[aria-current="true"] { background: var(--gold); }

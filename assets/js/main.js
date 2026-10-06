@@ -142,6 +142,7 @@
     var delay = parseInt(root.getAttribute('data-autoplay') || '5000', 10);
 
     function perView() {
+      if (root.classList.contains('carousel--solo')) { return 1; }
       var w = window.innerWidth;
       if (w <= 767) { return 1; }
       if (w <= 1024) { return 2; }

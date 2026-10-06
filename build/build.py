@@ -415,7 +415,8 @@ def feature(title, body, tid=None):
 CREST = img_src('logo-or2-1024x792.png')
 
 
-def showcase(row2, row3, carousel_imgs=None, crest=True, carousel_class=''):
+def showcase(row2, row3, carousel_imgs=None, crest=True, carousel_class='',
+             mobile_carousel=None):
     """Bloc galerie de l'original : médaillon en débord, rangée de 2, rangée de 3,
     puis éventuellement le carrousel à trois vues."""
     crest_html = ''
@@ -433,6 +434,30 @@ def showcase(row2, row3, carousel_imgs=None, crest=True, carousel_class=''):
         rows += f'\n    <div class="showcase__row showcase__row--2">\n{cells(row2)}\n    </div>'
     if row3:
         rows += f'\n    <div class="showcase__row showcase__row--3">\n{cells(row3)}\n    </div>'
+
+    # Sur mobile, une seule image fixe sous le médaillon manquait de vie :
+    # on lui substitue un carrousel, le médaillon restant posé dessus.
+    mob = ''
+    if mobile_carousel:
+        slides = '\n'.join(
+            f'        <div class="carousel__slide" role="group" '
+            f'aria-roledescription="diapositive" aria-label="{i + 1} sur {len(mobile_carousel)}">'
+            f'{picture(src, alt)}</div>'
+            for i, (src, alt) in enumerate(mobile_carousel))
+        mob = f'''<div class="showcase__band only-mobile">
+    {crest_html}
+    <div class="carousel carousel--solo" data-carousel data-autoplay="5000" tabindex="0"
+         role="region" aria-roledescription="carrousel" aria-label="Les suites en images">
+      <div class="carousel__viewport">
+        <div class="carousel__track">
+{slides}
+        </div>
+      </div>
+      <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Image précédente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M15 4l-8 8 8 8"/></svg></button>
+      <button class="carousel__btn carousel__btn--next" type="button" aria-label="Image suivante"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg></button>
+      <div class="carousel__dots"></div>
+    </div>
+  </div>'''
 
     car = ''
     if carousel_imgs:
@@ -453,8 +478,9 @@ def showcase(row2, row3, carousel_imgs=None, crest=True, carousel_class=''):
     <div class="carousel__dots"></div>
   </div>'''
 
+    band_cls = 'showcase__band only-desktop' if mobile_carousel else 'showcase__band'
     return f'''<div class="showcase reveal">
-  <div class="showcase__band">
+  {mob}<div class="{band_cls}">
     {crest_html}{rows}
   </div>{car}
 </div>'''
@@ -520,6 +546,7 @@ def suites_named(more=None):
         f'''<a class="suite-card" href="{href}">
       <span class="suite-card__media">
         {picture(img_src(img), name)}
+        <span class="suite-card__num" aria-hidden="true"></span>
         <span class="suite-card__area">{area}</span>
       </span>
       <span class="suite-card__name">{e(name)}</span>

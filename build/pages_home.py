@@ -85,7 +85,8 @@ def build():
       <p style="margin-top:1.75rem">{btn(url(A(P, 21)), T(P, 22))}</p>
     </div>
   </div>
-  {showcase(suites_2, None, suites_carousel, carousel_class='only-desktop')}
+  {showcase(suites_2, None, suites_carousel, carousel_class='only-desktop',
+            mobile_carousel=suites_2 + suites_carousel)}
   <div class="wrap-1300 only-mobile" style="margin-top:6px">
     {suites_named(btn('suites.html', 'Découvrir nos suites'))}
   </div>
