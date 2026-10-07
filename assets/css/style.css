@@ -1332,3 +1332,48 @@ body.nav-open { overflow: hidden; }
   transition: background .3s var(--ease);
 }
 .carousel--solo .carousel__dot[aria-current="true"] { background: var(--gold); }
+
+/* ==========================================================================
+   Encadrement de section — filet en passe-partout, ornements aux angles
+   et palmette du monogramme en ponctuation.
+   Le bloc encadré porte sa respiration basse et la section suivante renonce
+   à la sienne : l'écart entre sections reste --gap-section.
+   ========================================================================== */
+.section--cadre {
+  position: relative;
+  padding-bottom: var(--gap-section);
+}
+.section--cadre::before {
+  content: ''; position: absolute; inset: 40px 32px;
+  border: 1px solid rgba(197,149,46,.4);
+  pointer-events: none;
+}
+.section--cadre + .section,
+.section--cadre + .section--tight { padding-top: 0; }
+
+.cadre__angle { position: absolute; width: 104px; z-index: 2; pointer-events: none; }
+.cadre__angle img { width: 100%; display: block; }
+.cadre__angle--bg { bottom: 24px; left: 16px; }
+.cadre__angle--hg { top: 24px; left: 16px; transform: scaleY(-1); }
+.cadre__angle--bd { bottom: 24px; right: 16px; transform: scaleX(-1); }
+.cadre__angle--hd { top: 24px; right: 16px; transform: scale(-1, -1); }
+
+.cadre__palmette {
+  position: absolute; left: 50%; width: 58px; z-index: 3;
+  background: #fff; padding: 0 14px; pointer-events: none;
+}
+.cadre__palmette img { width: 100%; display: block; }
+.cadre__palmette--haut { top: 40px; transform: translate(-50%, -50%); }
+.cadre__palmette--bas { bottom: 40px; transform: translate(-50%, 50%) rotate(180deg); }
+
+@media (max-width: 767px) {
+  .section--cadre::before { inset: 30px 18px; }
+  .cadre__angle { width: 68px; }
+  .cadre__angle--bg, .cadre__angle--bd { bottom: 16px; }
+  .cadre__angle--hg, .cadre__angle--hd { top: 16px; }
+  .cadre__angle--bg, .cadre__angle--hg { left: 10px; }
+  .cadre__angle--bd, .cadre__angle--hd { right: 10px; }
+  .cadre__palmette { width: 44px; }
+  .cadre__palmette--haut { top: 30px; }
+  .cadre__palmette--bas { bottom: 30px; }
+}

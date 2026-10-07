@@ -64,6 +64,20 @@ compte de la casse.
 Tailles reprises de l'original : desktop 40px (titres) / 25px (chapeau) /
 17px (corps). Sur mobile : 27 / 19 / 17px.
 
+## Encadrement de section
+
+`.section--cadre` pose un filet doré en passe-partout, l'ornement d'angle aux
+quatre coins et la palmette du monogramme en haut et en bas. Les ornements sont
+rendus en HTML par `cadre()` dans `build/build.py`, pas injectés en JavaScript :
+ils doivent être là au premier affichage.
+
+L'ornement d'angle (`ornement-angle.webp`) a été détouré d'un motif fourni par
+le client, puis recoloré dans l'or de la charte. La palmette
+(`ornement-palmette.webp`) est découpée dans le monogramme.
+
+Comme `.section--paper`, le bloc encadré porte sa propre respiration basse et
+la section suivante renonce à la sienne : l'écart reste `--gap-section`.
+
 ## Espacements
 
 Un seul token : `--gap-section` (96px mobile, 90px au-delà de 900px). Il régit

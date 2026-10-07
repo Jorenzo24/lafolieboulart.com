@@ -1,7 +1,7 @@
 """Page d'accueil — structure et mise en forme reprises du site d'origine."""
 from build import (
     T, IM, A, img_src, url, e, paras, lines, rule, btn, picture,
-    page, showcase, split, title, btn_row, vimeo, suites_named,
+    page, showcase, split, title, btn_row, vimeo, suites_named, cadre,
 )
 
 P = 'home'
@@ -113,7 +113,8 @@ def build():
   {showcase(spa_2, spa_3)}
 </section>
 
-<section class="section section--paper">
+<section class="section section--cadre">
+  {cadre()}
   <div class="wrap-1140">
     <div class="duo-cross">
       <div class="duo-cross__col">
@@ -147,7 +148,8 @@ def build():
   {showcase(rec_2, rec_3)}
 </section>
 
-<section class="section">
+<section class="section section--cadre">
+  {cadre()}
   <div class="wrap-1300">
     {split(
         picture(*colonnes),
@@ -155,10 +157,7 @@ def build():
       <div class="prose">{paras(T(P, 77))}</div>
       {btn_row(btn(url(A(P, 78)), T(P, 79)), 'start')}""", middle=True)}
   </div>
-</section>
-
-<section class="section">
-  <div class="wrap-1300">
+  <div class="wrap-1300" style="margin-top:var(--gap-section)">
     {split(
         f"""{title(T(P, 80), 'end', ink=True)}
       <div class="prose">{paras(T(P, 81))}</div>

@@ -555,3 +555,24 @@ def suites_named(more=None):
         for name, area, img, href in SUITES_NAMED)
     tail = f'<p class="suites-named__more">{more}</p>' if more else ''
     return f'<div class="suites-named">{cards}</div>{tail}'
+
+
+ORN_ANGLE = img_src('ornement-angle.webp')
+ORN_PALMETTE = img_src('ornement-palmette.webp')
+
+
+def cadre():
+    """Ornements de l'encadrement : quatre angles et deux palmettes.
+
+    Rendus en HTML plutôt qu'injectés en JavaScript, pour qu'ils soient là
+    dès le premier affichage.
+    """
+    angles = ''.join(
+        f'<span class="cadre__angle cadre__angle--{c}" aria-hidden="true">'
+        f'<img src="{ORN_ANGLE}" alt="" loading="lazy" decoding="async"></span>'
+        for c in ('hg', 'hd', 'bg', 'bd'))
+    palmettes = ''.join(
+        f'<span class="cadre__palmette cadre__palmette--{c}" aria-hidden="true">'
+        f'<img src="{ORN_PALMETTE}" alt="" loading="lazy" decoding="async"></span>'
+        for c in ('haut', 'bas'))
+    return angles + palmettes
