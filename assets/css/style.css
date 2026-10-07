@@ -80,7 +80,9 @@ img, video { max-width: 100%; display: block; }
 img { height: auto; }
 a { color: var(--navy); text-decoration: none; transition: color .3s var(--ease); }
 a:hover { color: var(--navy-hover); }
-button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+/* padding:0 compris : le padding par défaut des boutons (1px 6px) l'emportait
+   sur les dimensions déclarées des pastilles, qui en devenaient ovales. */
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 h1, h2, h3, h4 {
@@ -384,7 +386,15 @@ body.nav-open { overflow: hidden; }
 /* Les galeries intercalées suivent la même règle que les sections :
    padding en tête seulement, l'écart restant porté par le bloc suivant. */
 .section--tight { padding: var(--gap-section) 0 0; }
-.section--paper { background: var(--paper); }
+/* Fond ivoire pour isoler une section de ses voisines. Le bloc coloré porte
+   lui-même sa respiration basse, et la section suivante renonce à la sienne :
+   l'écart visuel reste --gap-section, il passe simplement dans la couleur. */
+.section--paper {
+  background: var(--paper);
+  padding-bottom: var(--gap-section);
+}
+.section--paper + .section,
+.section--paper + .section--tight { padding-top: 0; }
 .section--warm { background: var(--paper-warm); }
 .section--navy { background: var(--navy); color: #fff; }
 .section--navy h1, .section--navy h2, .section--navy h3 { color: #fff; }
@@ -1310,7 +1320,9 @@ body.nav-open { overflow: hidden; }
 .carousel--solo { margin-top: 0; }
 .carousel--solo .carousel__slide { flex-basis: 100%; padding: 0; }
 .carousel--solo .carousel__slide img { aspect-ratio: 1024 / 683; }
-.carousel--solo .carousel__dots { display: flex; justify-content: center; gap: .5rem; margin-top: .9rem; }
+/* Même respiration au-dessus et au-dessous de la bande de points. */
+.carousel--solo .carousel__dots { display: flex; justify-content: center; gap: .5rem; margin-top: 12px; }
+.showcase + .suites-after { margin-top: 12px; }
 .carousel--solo .carousel__dot {
   width: 6px; height: 6px; border-radius: 50%; background: rgba(32,32,32,.2);
   transition: background .3s var(--ease);
