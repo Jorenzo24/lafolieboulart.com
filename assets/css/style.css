@@ -386,12 +386,16 @@ body.nav-open { overflow: hidden; }
 /* Les galeries intercalées suivent la même règle que les sections :
    padding en tête seulement, l'écart restant porté par le bloc suivant. */
 .section--tight { padding: var(--gap-section) 0 0; }
-/* Fond ivoire pour isoler une section de ses voisines. Le bloc coloré porte
-   lui-même sa respiration basse, et la section suivante renonce à la sienne :
-   l'écart visuel reste --gap-section, il passe simplement dans la couleur. */
+/* Fond pierre pour isoler une section de ses voisines. L'écart au blanc est
+   de 13 % : au-dessous, la limite ne se lit plus. Un filet doré tranche la
+   jonction, que les 90px de respiration rendraient sinon floue.
+   Le bloc coloré porte lui-même sa respiration basse, et la section suivante
+   renonce à la sienne : l'écart visuel reste --gap-section. */
 .section--paper {
-  background: var(--paper);
+  background: var(--paper-warm);
   padding-bottom: var(--gap-section);
+  border-top: 1px solid rgba(197,149,46,.38);
+  border-bottom: 1px solid rgba(197,149,46,.38);
 }
 .section--paper + .section,
 .section--paper + .section--tight { padding-top: 0; }
