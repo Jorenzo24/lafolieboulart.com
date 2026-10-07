@@ -971,7 +971,7 @@ body.nav-open { overflow: hidden; }
 .cal__day[disabled] { color: rgba(32,32,32,.22); cursor: not-allowed; }
 .cal__day:not([disabled]):hover { background: rgba(197,149,46,.14); }
 .cal__day--in {
-  background: rgba(197,149,46,.3); color: var(--ink); font-weight: 600; border-radius: 0;
+  background: rgba(197,149,46,.65); color: var(--ink); font-weight: 600; border-radius: 0;
 }
 .cal__day--start, .cal__day--end {
   background: var(--navy-deep); color: #fff; font-weight: 600;
@@ -988,7 +988,7 @@ body.nav-open { overflow: hidden; }
 .cal__key { display: inline-flex; align-items: center; gap: .5rem; }
 .cal__chip { width: 13px; height: 13px; border-radius: 50%; }
 .cal__chip--free { background: #fff; border: 1px solid rgba(32,32,32,.25); }
-.cal__chip--sel { background: rgba(197,149,46,.5); border: 1px solid var(--gold); }
+.cal__chip--sel { background: rgba(197,149,46,.65); border: 1px solid var(--gold); }
 .cal__chip--off { background: rgba(32,32,32,.14); }
 
 /* Champs */
@@ -1139,7 +1139,8 @@ body.nav-open { overflow: hidden; }
    sur son format pour montrer le château entier plutôt que de le recadrer. */
 .page-hero--facade .page-hero__media img { object-position: center 38%; }
 @media (min-width: 900px) {
-  .page-hero--facade { min-height: 0; aspect-ratio: 1920 / 653; }
+  /* format du cadrage resserré, centré sur les deux épis du faîtage */
+  .page-hero--facade { min-height: 0; aspect-ratio: 1500 / 653; }
 }
 
 /* Soulignement du texte de positionnement : décalé pour rester élégant

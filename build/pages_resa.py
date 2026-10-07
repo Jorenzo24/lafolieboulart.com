@@ -215,7 +215,7 @@ def build():
 
     body = f'''
 <section class="page-hero page-hero--facade">
-  <div class="page-hero__media">{picture(img_src('Facade-nord-chateau-boulart-scaled.jpg'), 'La Folie Boulart — façade du château', eager=True)}</div>
+  <div class="page-hero__media">{picture(img_src('facade-hero.jpg'), 'La Folie Boulart — façade du château', eager=True)}</div>
   <div class="page-hero__inner">
     <p class="eyebrow reveal">La Folie Boulart</p>
     <h1 class="page-hero__title reveal reveal-d1">Demande de réservation</h1>
@@ -272,9 +272,9 @@ def build():
               <p class="resa__hint">La demeure compte huit suites, réservées à vous seuls.</p>
 
               <div class="counters">
-                {counter('adults', 'Adultes', 'À partir de 13 ans', 2, 1, 16)}
-                {counter('children', 'Enfants', 'De 2 à 12 ans', 0, 0, 10)}
-                {counter('infants', 'Nourrissons', 'Moins de 2 ans', 0, 0, 6)}
+                {counter('adults', 'Adultes', '', 2, 1, 16)}
+                {counter('children', 'Enfants', '3 à 12 ans', 0, 0, 10)}
+                {counter('infants', 'Nourrissons', 'jusqu’à 3 ans', 0, 0, 6)}
                 <p class="counters__total">
                   <span>Au total</span>
                   <strong data-total>2 convives</strong>
