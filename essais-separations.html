@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Essais de séparation — La Folie Boulart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+body { background: #fff; }
+/* la démo ne charge pas main.js : on neutralise l'apparition au défilement */
+.reveal { opacity: 1 !important; transform: none !important; }
+.demo-head { padding: 2.5rem var(--gutter) 1rem; text-align: center; }
+.demo-head h1 { font-family: var(--serif); font-size: 1.6rem; color: var(--gold); margin: 0 0 .5rem; }
+.demo-head p { font-size: 15px; color: var(--ink-soft); max-width: 46ch; margin: 0 auto; }
+.demo-label {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--navy); color: #fff;
+  font-family: var(--serif); font-size: 13px; line-height: 1.45;
+  padding: .7rem var(--gutter);
+  display: flex; gap: .75rem; align-items: baseline;
+}
+.demo-label span {
+  flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--gold); color: #fff; display: grid; place-items: center;
+  font-size: 12px;
+}
+
+/* ---- A : cadre en passe-partout ---- */
+.sep-A { position: relative; padding-bottom: var(--gap-section); }
+.sep-A::before {
+  content: ''; position: absolute; inset: 28px 20px;
+  border: 1px solid rgba(197,149,46,.45); pointer-events: none;
+}
+
+/* ---- B : équerres aux angles ---- */
+.sep-B { position: relative; padding-bottom: var(--gap-section); }
+.sep-B::before, .sep-B::after {
+  content: ''; position: absolute; width: 54px; height: 54px; pointer-events: none;
+  border-color: rgba(197,149,46,.6); border-style: solid;
+}
+.sep-B::before { top: 26px; left: 18px; border-width: 1px 0 0 1px; }
+.sep-B::after { bottom: 26px; right: 18px; border-width: 0 1px 1px 0; }
+.sep-B .wrap-1140 { position: relative; }
+.sep-B .wrap-1140::before, .sep-B .wrap-1140::after {
+  content: ''; position: absolute; width: 54px; height: 54px; pointer-events: none;
+  border-color: rgba(197,149,46,.6); border-style: solid;
+}
+.sep-B .wrap-1140::before { top: -28px; right: -18px; border-width: 1px 1px 0 0; }
+.sep-B .wrap-1140::after { bottom: -28px; left: -18px; border-width: 0 0 1px 1px; }
+
+/* ---- C : filet et médaillon ---- */
+.sep-C { position: relative; padding-bottom: var(--gap-section); }
+.sep-C::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: min(78%, 900px); height: 1px; background: rgba(197,149,46,.5);
+}
+.sep-C .crest-mark {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
+  width: 60px; background: #fff; padding: 0 14px;
+}
+.sep-C .crest-mark img { width: 100%; display: block; }
+
+/* ---- D : fond pierre franc ---- */
+.sep-D {
+  background: #eee7dc; padding-bottom: var(--gap-section);
+  border-top: 1px solid rgba(197,149,46,.38);
+  border-bottom: 1px solid rgba(197,149,46,.38);
+}
+
+/* ---- E : double filet ---- */
+.sep-E { position: relative; padding-bottom: var(--gap-section); }
+.sep-E::before, .sep-E::after {
+  content: ''; position: absolute; left: var(--gutter); right: var(--gutter);
+  height: 4px; pointer-events: none;
+  border-top: 2px solid rgba(197,149,46,.55);
+  border-bottom: 1px solid rgba(197,149,46,.3);
+}
+.sep-E::before { top: 0; }
+.sep-E::after { bottom: 0; }
+</style>
+</head>
+<body>
+<div class="demo-head">
+  <h1>Cinq façons de marquer une section</h1>
+  <p>Même contenu à chaque fois. Faites défiler : l'intitulé reste collé en haut
+  pendant que vous regardez la variante. Dites-moi la lettre qui vous parle.</p>
+</div>
+
+<div class="demo-label"><span>A</span>Cadre en passe-partout — Un filet doré encadre la section en retrait, comme le passe-partout d'un tableau.</div>
+<section class="section sep-A">
+
+  <div class="wrap-1140">
+    <div class="duo-cross">
+      <div class="duo-cross__col">
+        <div class="duo-cross__a duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">L’art culinaire</h2>
+          <div class="prose"><p>Des menus gastronomiques mêlant les traditions basques, landaises, espagnoles aux cuisines du monde les plus savoureuses, sont élaborés par le chef jean-marie gautier (meilleur ouvrier de france).<br>
+15 autres chefs étoilés, amis de la Folie Boulart, pourront également magnifier les repas de fêtes dans la grande salle à manger.<br>
+Déjeuners et brunchs, cocktails et dîners, sont aussi proposés sur les somptueuses terrasses.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+        <div class="duo-cross__b reveal"><img src="assets/img/Chef-chateau.webp" alt="chef cuisine chateau boulart" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="duo-cross__col">
+        <div class="duo-cross__d reveal"><img src="assets/img/the-salon.webp" alt="thé au chateau boulart" loading="lazy" decoding="async"></div>
+        <div class="duo-cross__c duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">Une atmosphère de châtelain</h2>
+          <div class="prose"><p>Fort d’un siècle d’expertise dans l’accueil de réceptions, la Folie Boulart est le lieu idéal pour imaginer tout type d’événement. Espaces de réunion élégants, salons privés pour des expériences gastronomiques sur mesure ou salle de bal historique, la Folie Boulart accueille les plus beaux espaces de réception de BIARRITZ, la cité Impériale. Notre équipe événementielle est heureuse de vous accompagner pour imaginer un événement qui reflète le savoir-faire légendaire du Palais.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="demo-label"><span>B</span>Équerres aux angles — Seuls les quatre angles sont marqués. Le cadre est suggéré, jamais fermé.</div>
+<section class="section sep-B">
+
+  <div class="wrap-1140">
+    <div class="duo-cross">
+      <div class="duo-cross__col">
+        <div class="duo-cross__a duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">L’art culinaire</h2>
+          <div class="prose"><p>Des menus gastronomiques mêlant les traditions basques, landaises, espagnoles aux cuisines du monde les plus savoureuses, sont élaborés par le chef jean-marie gautier (meilleur ouvrier de france).<br>
+15 autres chefs étoilés, amis de la Folie Boulart, pourront également magnifier les repas de fêtes dans la grande salle à manger.<br>
+Déjeuners et brunchs, cocktails et dîners, sont aussi proposés sur les somptueuses terrasses.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+        <div class="duo-cross__b reveal"><img src="assets/img/Chef-chateau.webp" alt="chef cuisine chateau boulart" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="duo-cross__col">
+        <div class="duo-cross__d reveal"><img src="assets/img/the-salon.webp" alt="thé au chateau boulart" loading="lazy" decoding="async"></div>
+        <div class="duo-cross__c duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">Une atmosphère de châtelain</h2>
+          <div class="prose"><p>Fort d’un siècle d’expertise dans l’accueil de réceptions, la Folie Boulart est le lieu idéal pour imaginer tout type d’événement. Espaces de réunion élégants, salons privés pour des expériences gastronomiques sur mesure ou salle de bal historique, la Folie Boulart accueille les plus beaux espaces de réception de BIARRITZ, la cité Impériale. Notre équipe événementielle est heureuse de vous accompagner pour imaginer un événement qui reflète le savoir-faire légendaire du Palais.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="demo-label"><span>C</span>Filet et médaillon — Un filet pleine largeur, interrompu au centre par le monogramme de la maison.</div>
+<section class="section sep-C">
+
+  <div class="wrap-1140">
+    <div class="duo-cross">
+      <div class="duo-cross__col">
+        <div class="duo-cross__a duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">L’art culinaire</h2>
+          <div class="prose"><p>Des menus gastronomiques mêlant les traditions basques, landaises, espagnoles aux cuisines du monde les plus savoureuses, sont élaborés par le chef jean-marie gautier (meilleur ouvrier de france).<br>
+15 autres chefs étoilés, amis de la Folie Boulart, pourront également magnifier les repas de fêtes dans la grande salle à manger.<br>
+Déjeuners et brunchs, cocktails et dîners, sont aussi proposés sur les somptueuses terrasses.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+        <div class="duo-cross__b reveal"><img src="assets/img/Chef-chateau.webp" alt="chef cuisine chateau boulart" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="duo-cross__col">
+        <div class="duo-cross__d reveal"><img src="assets/img/the-salon.webp" alt="thé au chateau boulart" loading="lazy" decoding="async"></div>
+        <div class="duo-cross__c duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">Une atmosphère de châtelain</h2>
+          <div class="prose"><p>Fort d’un siècle d’expertise dans l’accueil de réceptions, la Folie Boulart est le lieu idéal pour imaginer tout type d’événement. Espaces de réunion élégants, salons privés pour des expériences gastronomiques sur mesure ou salle de bal historique, la Folie Boulart accueille les plus beaux espaces de réception de BIARRITZ, la cité Impériale. Notre équipe événementielle est heureuse de vous accompagner pour imaginer un événement qui reflète le savoir-faire légendaire du Palais.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="demo-label"><span>D</span>Fond pierre franc — Le fond actuel, poussé à 19,5 % d'écart au blanc au lieu de 13,4 %.</div>
+<section class="section sep-D">
+
+  <div class="wrap-1140">
+    <div class="duo-cross">
+      <div class="duo-cross__col">
+        <div class="duo-cross__a duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">L’art culinaire</h2>
+          <div class="prose"><p>Des menus gastronomiques mêlant les traditions basques, landaises, espagnoles aux cuisines du monde les plus savoureuses, sont élaborés par le chef jean-marie gautier (meilleur ouvrier de france).<br>
+15 autres chefs étoilés, amis de la Folie Boulart, pourront également magnifier les repas de fêtes dans la grande salle à manger.<br>
+Déjeuners et brunchs, cocktails et dîners, sont aussi proposés sur les somptueuses terrasses.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+        <div class="duo-cross__b reveal"><img src="assets/img/Chef-chateau.webp" alt="chef cuisine chateau boulart" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="duo-cross__col">
+        <div class="duo-cross__d reveal"><img src="assets/img/the-salon.webp" alt="thé au chateau boulart" loading="lazy" decoding="async"></div>
+        <div class="duo-cross__c duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">Une atmosphère de châtelain</h2>
+          <div class="prose"><p>Fort d’un siècle d’expertise dans l’accueil de réceptions, la Folie Boulart est le lieu idéal pour imaginer tout type d’événement. Espaces de réunion élégants, salons privés pour des expériences gastronomiques sur mesure ou salle de bal historique, la Folie Boulart accueille les plus beaux espaces de réception de BIARRITZ, la cité Impériale. Notre équipe événementielle est heureuse de vous accompagner pour imaginer un événement qui reflète le savoir-faire légendaire du Palais.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="demo-label"><span>E</span>Double filet — Deux filets dorés d'épaisseur inégale, à la manière des encadrements du XIXᵉ.</div>
+<section class="section sep-E">
+
+  <div class="wrap-1140">
+    <div class="duo-cross">
+      <div class="duo-cross__col">
+        <div class="duo-cross__a duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">L’art culinaire</h2>
+          <div class="prose"><p>Des menus gastronomiques mêlant les traditions basques, landaises, espagnoles aux cuisines du monde les plus savoureuses, sont élaborés par le chef jean-marie gautier (meilleur ouvrier de france).<br>
+15 autres chefs étoilés, amis de la Folie Boulart, pourront également magnifier les repas de fêtes dans la grande salle à manger.<br>
+Déjeuners et brunchs, cocktails et dîners, sont aussi proposés sur les somptueuses terrasses.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+        <div class="duo-cross__b reveal"><img src="assets/img/Chef-chateau.webp" alt="chef cuisine chateau boulart" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="duo-cross__col">
+        <div class="duo-cross__d reveal"><img src="assets/img/the-salon.webp" alt="thé au chateau boulart" loading="lazy" decoding="async"></div>
+        <div class="duo-cross__c duo-cross__txt reveal">
+          <h2 class="section__title section__title--start">Une atmosphère de châtelain</h2>
+          <div class="prose"><p>Fort d’un siècle d’expertise dans l’accueil de réceptions, la Folie Boulart est le lieu idéal pour imaginer tout type d’événement. Espaces de réunion élégants, salons privés pour des expériences gastronomiques sur mesure ou salle de bal historique, la Folie Boulart accueille les plus beaux espaces de réception de BIARRITZ, la cité Impériale. Notre équipe événementielle est heureuse de vous accompagner pour imaginer un événement qui reflète le savoir-faire légendaire du Palais.</p></div>
+          <p class="btn-row btn-row--end"><a class="btn" href="services.html"><span>En savoir plus</span></a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="demo-label"><span>·</span>Fin des essais</div>
+<div style="height:40vh"></div>
+<script>
+// le médaillon de la variante C
+document.querySelectorAll('.sep-C').forEach(function (s) {
+  var m = document.createElement('span');
+  m.className = 'crest-mark';
+  m.innerHTML = '<img src="assets/img/logo-or2-1024x792.webp" alt="">';
+  s.appendChild(m);
+});
+</script>
+</body>
+</html>
