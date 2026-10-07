@@ -1361,9 +1361,18 @@ body.nav-open { overflow: hidden; }
 .section--cadre + .section,
 .section--cadre + .section--tight { padding-top: 0; }
 
-/* Le bloc galerie va bord à bord ; encadré, il doit rentrer sous le filet. */
-.section--cadre .showcase { padding-inline: 52px; }
-@media (max-width: 767px) { .section--cadre .showcase { padding-inline: 30px; } }
+/* Le bloc galerie va bord à bord ; encadré, il doit rentrer sous le filet.
+   Le listing des suites reçoit le même retrait, pour que les bords des images
+   s'alignent d'un bloc à l'autre. */
+.section--cadre .showcase,
+.section--cadre .suites-after { padding-inline: 52px; }
+@media (max-width: 767px) {
+  .section--cadre .showcase,
+  .section--cadre .suites-after { padding-inline: 30px; }
+}
+/* Les vues du carrousel ont 2,5px de gouttière : on la compense pour que la
+   première image tombe exactement sur le bord des autres blocs. */
+.carousel:not(.carousel--solo) { margin-inline: -2.5px; }
 
 .cadre__angle { position: absolute; width: 104px; z-index: 2; pointer-events: none; }
 .cadre__angle img { width: 100%; display: block; }
