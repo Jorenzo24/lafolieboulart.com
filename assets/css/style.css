@@ -1360,6 +1360,10 @@ body.nav-open { overflow: hidden; }
 .section--cadre + .section,
 .section--cadre + .section--tight { padding-top: 0; }
 
+/* Le bloc galerie va bord à bord ; encadré, il doit rentrer sous le filet. */
+.section--cadre .showcase { padding-inline: 52px; }
+@media (max-width: 767px) { .section--cadre .showcase { padding-inline: 30px; } }
+
 .cadre__angle { position: absolute; width: 104px; z-index: 2; pointer-events: none; }
 .cadre__angle img { width: 100%; display: block; }
 .cadre__angle--bg { bottom: 24px; left: 16px; }

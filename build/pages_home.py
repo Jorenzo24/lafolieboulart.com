@@ -76,7 +76,8 @@ def build():
   </div>
 </section>
 
-<section class="section">
+<section class="section section--cadre">
+  {cadre()}
   <div class="wrap">
     <div class="section__head reveal">
       <h2 class="section__title section__title--lg">{lines(T(P, 17))}</h2>
