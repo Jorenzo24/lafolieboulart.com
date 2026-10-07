@@ -1257,6 +1257,15 @@ body.nav-open { overflow: hidden; }
   display: grid; grid-template-columns: 1fr 1fr;
   gap: clamp(.9rem, 3vw, 1.4rem) clamp(.7rem, 2.5vw, 1rem);
 }
+/* Sur grand écran, les huit suites tiennent sur deux rangées de quatre,
+   et le listing se détache de la galerie qui le précède. */
+@media (min-width: 900px) {
+  .suites-named { grid-template-columns: repeat(4, 1fr); gap: 1.6rem 1.1rem; }
+  .suites-after { margin-top: 44px; }
+  .suite-card__media { aspect-ratio: 3 / 4; }
+  .suite-card__name { font-size: 16px; }
+  .suite-card__area { font-size: 12px; }
+}
 .suite-card { display: block; color: inherit; }
 
 .suite-card__media {

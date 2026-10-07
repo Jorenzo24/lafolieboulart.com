@@ -87,7 +87,7 @@ def build():
   </div>
   {showcase(suites_2, None, suites_carousel, carousel_class='only-desktop',
             mobile_carousel=suites_2 + suites_carousel)}
-  <div class="wrap-1300 only-mobile suites-after">
+  <div class="wrap-1300 suites-after">
     {suites_named(btn('suites.html', 'Découvrir nos suites'))}
   </div>
 </section>
