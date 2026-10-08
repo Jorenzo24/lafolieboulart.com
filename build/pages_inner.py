@@ -2,6 +2,7 @@
 import json
 import os
 
+from chrono import frise
 from build import (
     C, T, IM, A, img_src, url, e, paras, lines, rule, btn, picture,
     slider, gallery, duo, feature, page_hero, page, suites_named,
@@ -334,6 +335,9 @@ def build_philosophie():
   <div class="wrap">
     <div class="section__head reveal">
       <div class="prose prose--lead">{txt(3)}</div>
+    </div>
+    <div style="margin-bottom:clamp(2.5rem,6vw,4rem)">
+      {frise()}
     </div>
     <article class="feature reveal">
       <h2 class="feature__title">{lines(T(p, 4))}</h2>

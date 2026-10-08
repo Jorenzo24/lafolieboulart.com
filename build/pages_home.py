@@ -1,4 +1,5 @@
 """Page d'accueil — structure et mise en forme reprises du site d'origine."""
+from chrono import frise
 from build import (
     T, IM, A, img_src, url, e, paras, lines, rule, btn, picture,
     page, showcase, split, title, btn_row, vimeo, suites_named, cadre,
@@ -63,6 +64,17 @@ def build():
         f"""{title(T(P, 5), 'start')}
       <div class="prose">{paras(T(P, 6))}{paras(T(P, 7))}</div>
       {btn_row(btn(url(A(P, 8)), T(P, 9)), 'start')}""", middle=True)}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap-1140">
+    <div class="section__head reveal">
+      <p class="eyebrow">Depuis 1872</p>
+      <h2 class="section__title section__title--lg">Cent cinquante ans d’histoire</h2>
+    </div>
+    {frise(annees=('1872', '1881', '1889', '2022'), extrait=True)}
+    <p class="frise-suite">{btn('philosophie.html#histoire', 'Toute l’histoire du château')}</p>
   </div>
 </section>
 

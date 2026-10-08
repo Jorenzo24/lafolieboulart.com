@@ -1360,6 +1360,8 @@ body.nav-open { overflow: hidden; }
 }
 .section--cadre + .section,
 .section--cadre + .section--tight { padding-top: 0; }
+.section--cadre + .banner,
+.section--paper + .banner { margin-top: 0; }
 
 /* Le bloc galerie va bord à bord ; encadré, il doit rentrer sous le filet.
    Le listing des suites reçoit le même retrait, pour que les bords des images
@@ -1399,4 +1401,48 @@ body.nav-open { overflow: hidden; }
   .cadre__palmette { width: 44px; }
   .cadre__palmette--haut { top: 30px; }
   .cadre__palmette--bas { bottom: 30px; }
+}
+
+/* ==========================================================================
+   Frise chronologique
+   Verticale : une colonne horizontale serait spectaculaire sur grand écran
+   et pénible sur mobile. Le filet doré court le long des dates.
+   ========================================================================== */
+.frise {
+  position: relative; max-width: 760px; margin: 0 auto;
+  padding: 0; list-style: none;
+}
+.frise::before {
+  content: ''; position: absolute; top: 10px; bottom: 10px; left: 0;
+  width: 1px; background: linear-gradient(to bottom,
+    transparent, rgba(197,149,46,.5) 8%, rgba(197,149,46,.5) 92%, transparent);
+}
+.frise__item {
+  position: relative; padding-left: clamp(2.25rem, 6vw, 3.5rem);
+  padding-bottom: clamp(2rem, 5vw, 3rem);
+}
+.frise__item:last-child { padding-bottom: 0; }
+/* la pastille sur le filet */
+.frise__item::before {
+  content: ''; position: absolute; left: -4px; top: 14px;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--paper); border: 1px solid var(--gold);
+  transition: background .5s var(--ease);
+}
+.frise__item.is-visible::before { background: var(--gold); }
+
+.frise__an {
+  display: block; font-family: var(--serif); font-weight: 300;
+  font-size: clamp(2rem, 4.4vw, 3.25rem); line-height: 1;
+  color: var(--gold); letter-spacing: .01em;
+}
+.frise__txt {
+  margin: .7rem 0 0; font-size: 16px; line-height: 1.65;
+  color: var(--ink-soft); max-width: 46ch;
+}
+
+.frise-suite { text-align: center; margin: clamp(1.5rem, 3vw, 2.25rem) 0 0; }
+
+@media (max-width: 767px) {
+  .frise__txt { font-size: 15px; }
 }

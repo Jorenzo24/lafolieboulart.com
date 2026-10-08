@@ -41,6 +41,25 @@ hectares) doit se trouver dans `content.json`. Un « jusqu'à seize personnes »
 avait été déduit de 8 suites × 2 : c'était faux, et le client aurait pu se le
 voir opposer.
 
+**Chiffres fournis par le client**, hors `content.json` — à conserver ici au
+fur et à mesure, c'est leur seule trace :
+
+| Donnée | Source |
+| --- | --- |
+| **1881** — année d'achèvement du château | Confirmé par le client le 2026-09-08. L'année figure dans le logo (« BIARRITZ 1881 ») mais dans aucun texte du site d'origine. Utilisée par la frise (`build/chrono.py`). |
+
+## Frise chronologique
+
+`build/chrono.py` tient la liste `CHRONOLOGIE` et la fonction `frise()` :
+
+- accueil — extrait de quatre dates (1872, 1881, 1889, 2022) suivi du bouton
+  vers `philosophie.html#histoire` ;
+- philosophie — les huit dates, en ouverture de `#histoire`.
+
+Les faits sont des **condensés** rédigés pour la frise, pas des reprises mot
+pour mot : ils résument des passages de `content.json`. Toute date ajoutée doit
+être justifiable par la source ou figurer dans le tableau ci-dessus.
+
 ## Règle de marque : BIARRITZ
 
 **« Biarritz » s'écrit toujours BIARRITZ**, en capitales, dans tout le contenu
