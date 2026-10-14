@@ -54,11 +54,34 @@ fur et à mesure, c'est leur seule trace :
 
 - accueil — extrait de quatre dates (1872, 1881, 1889, 2022) suivi du bouton
   vers `philosophie.html#histoire` ;
-- philosophie — les huit dates, en ouverture de `#histoire`.
+- philosophie — les neuf dates, en ouverture de `#histoire`.
 
-Les faits sont des **condensés** rédigés pour la frise, pas des reprises mot
-pour mot : ils résument des passages de `content.json`. Toute date ajoutée doit
-être justifiable par la source ou figurer dans le tableau ci-dessus.
+Chaque entrée porte une date, un titre, un texte et le plus souvent une
+photographie légendée. Les faits sont des **condensés** de `content.json` —
+l'index de la source est en commentaire sur chaque entrée, pour qu'on puisse
+recouper. Toute date ajoutée doit être justifiable par la source ou figurer
+dans le tableau des chiffres fournis par le client.
+
+**Les titres et les légendes de photo sont des formulations nouvelles** :
+ils n'existent nulle part dans la source. À faire relire.
+
+Trois mises en page, choisies selon la nature du document :
+
+| Classe | Rendu | Pour |
+| --- | --- | --- |
+| *(par défaut)* | vignette 4/3 à droite du texte | les photographies |
+| `--planche` | pleine largeur, `object-fit: contain` sur fond crème | les deux documents d'archive dessinés (coupe, perspective) — en vignette, le trait devenait illisible |
+| `--large` | pleine largeur en 2,2/1 | les deux pièces panoramiques (triptyque du couple, casino) que le recadrage amputait |
+
+Un seul token de position, `--axe`, porte le filet vertical **et** les
+pastilles. Mobile n'a qu'à le remettre à `0`.
+
+## Visionneuse : séries
+
+`picture(..., lightbox=...)` accepte un **nom de série** en plus de `True`.
+Les images d'une même série défilent entre elles ; `True` les met dans la
+série commune, comme avant. Sans ça, « suivant » faisait passer d'une archive
+de la frise à une photo de suite.
 
 ## Règle de marque : BIARRITZ
 

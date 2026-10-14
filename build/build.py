@@ -347,7 +347,11 @@ def picture(src, alt, cls='', w=None, h=None, eager=False, lightbox=False):
     attrs = f' class="{cls}"' if cls else ''
     dims = f' width="{w}" height="{h}"' if w else ''
     load = ' loading="eager" fetchpriority="high"' if eager else ' loading="lazy" decoding="async"'
-    lb = ' data-lightbox' if lightbox else ''
+    # lightbox peut être un nom de série : les images d'une même série
+    # défilent entre elles, sans se mêler aux autres de la page.
+    lb = ''
+    if lightbox:
+        lb = f' data-lightbox="{lightbox}"' if isinstance(lightbox, str) else ' data-lightbox'
     return f'<img{attrs} src="{src}" alt="{e(alt)}"{dims}{load}{lb}>'
 
 

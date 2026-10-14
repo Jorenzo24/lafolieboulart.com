@@ -218,6 +218,16 @@
   /* ---------- Visionneuse ---------- */
   var lbItems = Array.prototype.slice.call(document.querySelectorAll('[data-lightbox]'));
   if (lbItems.length) {
+    /* Les images se regroupent par série : la valeur de data-lightbox.
+       Sans valeur, elles forment la série commune, comme avant. Sans ce
+       groupement, « suivant » faisait passer d'une archive de la frise à une
+       photo de suite. */
+    var series = {};
+    lbItems.forEach(function (el) {
+      var k = el.getAttribute('data-lightbox') || '';
+      (series[k] = series[k] || []).push(el);
+    });
+    var serie = lbItems;
     var lb = document.createElement('div');
     lb.className = 'lightbox';
     lb.setAttribute('role', 'dialog');
@@ -240,16 +250,17 @@
     var opener = null;
 
     function show(i) {
-      current = (i + lbItems.length) % lbItems.length;
-      var el = lbItems[current];
+      current = (i + serie.length) % serie.length;
+      var el = serie[current];
       var img = el.tagName === 'IMG' ? el : el.querySelector('img');
       lbImg.src = el.getAttribute('data-full') || (img ? img.currentSrc || img.src : '');
       lbImg.alt = img ? img.alt : '';
-      lbCount.textContent = (current + 1) + ' / ' + lbItems.length;
+      lbCount.textContent = (current + 1) + ' / ' + serie.length;
     }
-    function open(i) {
+    function open(el) {
       opener = document.activeElement;
-      show(i);
+      serie = series[el.getAttribute('data-lightbox') || ''];
+      show(serie.indexOf(el));
       lb.classList.add('is-open');
       document.body.classList.add('nav-open');
       lb.querySelector('.lightbox__close').focus();
@@ -260,13 +271,13 @@
       if (opener) { opener.focus(); }
     }
 
-    lbItems.forEach(function (el, i) {
+    lbItems.forEach(function (el) {
       el.style.cursor = 'zoom-in';
       if (!el.hasAttribute('tabindex')) { el.setAttribute('tabindex', '0'); }
       if (!el.hasAttribute('role')) { el.setAttribute('role', 'button'); }
-      el.addEventListener('click', function () { open(i); });
+      el.addEventListener('click', function () { open(el); });
       el.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(el); }
       });
     });
 

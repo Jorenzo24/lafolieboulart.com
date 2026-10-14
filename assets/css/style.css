@@ -1405,44 +1405,123 @@ body.nav-open { overflow: hidden; }
 
 /* ==========================================================================
    Frise chronologique
-   Verticale : une colonne horizontale serait spectaculaire sur grand écran
-   et pénible sur mobile. Le filet doré court le long des dates.
+   Trois colonnes : la date, le filet, puis le récit et sa photographie.
+   L'axe du filet est une variable unique (--axe) : la pastille et le trait
+   s'y accrochent tous les deux, et mobile n'a qu'à la remettre à zéro.
    ========================================================================== */
 .frise {
-  position: relative; max-width: 760px; margin: 0 auto;
-  padding: 0; list-style: none;
+  --axe: 184px;          /* 160px de colonne date + la moitié de la gouttière */
+  --col-img: 380px;
+  position: relative; margin: 0; padding: 0; list-style: none;
 }
 .frise::before {
-  content: ''; position: absolute; top: 10px; bottom: 10px; left: 0;
+  content: ''; position: absolute; top: 14px; bottom: 14px; left: var(--axe);
   width: 1px; background: linear-gradient(to bottom,
-    transparent, rgba(197,149,46,.5) 8%, rgba(197,149,46,.5) 92%, transparent);
+    transparent, rgba(197,149,46,.45) 5%, rgba(197,149,46,.45) 95%, transparent);
 }
+
 .frise__item {
-  position: relative; padding-left: clamp(2.25rem, 6vw, 3.5rem);
-  padding-bottom: clamp(2rem, 5vw, 3rem);
+  position: relative;
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr) var(--col-img);
+  column-gap: 48px;
+  align-items: start;
+  padding-bottom: clamp(2.75rem, 5vw, 4.5rem);
 }
 .frise__item:last-child { padding-bottom: 0; }
-/* la pastille sur le filet */
+
+/* la pastille, sur l'axe, à hauteur de la première ligne de la date */
 .frise__item::before {
-  content: ''; position: absolute; left: -4px; top: 14px;
+  content: ''; position: absolute; left: calc(var(--axe) - 4px); top: 16px;
   width: 9px; height: 9px; border-radius: 50%;
-  background: var(--paper); border: 1px solid var(--gold);
-  transition: background .5s var(--ease);
+  background: var(--white); border: 1px solid var(--gold);
+  transition: background .5s var(--ease), box-shadow .5s var(--ease);
 }
-.frise__item.is-visible::before { background: var(--gold); }
+.frise__item.is-visible::before {
+  background: var(--gold); box-shadow: 0 0 0 4px rgba(197,149,46,.12);
+}
 
 .frise__an {
-  display: block; font-family: var(--serif); font-weight: 300;
-  font-size: clamp(2rem, 4.4vw, 3.25rem); line-height: 1;
+  margin: 0; text-align: right;
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(2rem, 3.6vw, 3.25rem); line-height: 1;
   color: var(--gold); letter-spacing: .01em;
+  font-variant-numeric: lining-nums;
+}
+.frise__titre {
+  margin: 0; font-family: var(--serif); font-weight: 400;
+  font-size: 25px; line-height: 1.25; color: var(--ink);
 }
 .frise__txt {
-  margin: .7rem 0 0; font-size: 16px; line-height: 1.65;
-  color: var(--ink-soft); max-width: 46ch;
+  margin: .85rem 0 0; font-size: 17px; line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 56ch;       /* sans quoi les entrées pleine largeur filent à 880px */
 }
 
-.frise-suite { text-align: center; margin: clamp(1.5rem, 3vw, 2.25rem) 0 0; }
+/* la photographie */
+.frise__fig { margin: 0; overflow: hidden; }
+.frise__img {
+  display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  transition: transform .6s var(--ease);
+}
+.frise__fig > .frise__img { cursor: zoom-in; }
+.frise__item:hover .frise__img { transform: scale(1.03); }
 
+/* Les documents d'archive dessinés sont montrés entiers, posés sur le crème.
+   En vignette le trait devenait illisible : ils prennent la pleine largeur,
+   sous leur texte, et ne sont jamais recadrés. */
+.frise__item--planche { grid-template-columns: 160px minmax(0, 1fr); }
+.frise__item--planche .frise__fig { grid-column: 2; margin-top: 1.5rem; }
+.frise__img--planche {
+  aspect-ratio: 2 / 1; object-fit: contain;
+  background: var(--paper-warm); padding: clamp(14px, 2vw, 26px);
+  border: 1px solid rgba(197,149,46,.22);
+}
+.frise__item:hover .frise__img--planche { transform: none; }
+.frise__legende {
+  margin-top: .7rem; font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold-deep);
+}
+
+/* Les pièces d'archive panoramiques : pleine largeur sous leur texte,
+   leur format ne supporte pas le recadrage en 3/2. */
+.frise__item--large { grid-template-columns: 160px minmax(0, 1fr); }
+.frise__item--large .frise__fig { grid-column: 2; margin-top: 1.5rem; }
+.frise__item--large .frise__img { aspect-ratio: 2.2 / 1; }
+
+/* Entrée sans photographie. */
+.frise__item--nu { grid-template-columns: 160px minmax(0, 1fr); }
+
+.frise-suite { text-align: center; margin: clamp(2rem, 4vw, 3rem) 0 0; }
+
+/* Sous 1100px la colonne image devient trop étroite : elle passe sous le
+   texte, comme les panoramiques. */
+@media (max-width: 1099px) {
+  .frise__item,
+  .frise__item--large,
+  .frise__item--planche { grid-template-columns: 140px minmax(0, 1fr); }
+  .frise { --axe: 164px; }
+  .frise__fig { grid-column: 2; margin-top: 1.5rem; }
+  .frise__img { aspect-ratio: 2 / 1; }
+}
+
+/* Mobile : l'axe revient au bord, tout s'empile sous la date. */
 @media (max-width: 767px) {
-  .frise__txt { font-size: 15px; }
+  .frise { --axe: 0px; }
+  .frise__item,
+  .frise__item--large,
+  .frise__item--planche,
+  .frise__item--nu {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: clamp(1.75rem, 7vw, 2.5rem);
+  }
+  .frise__item::before { left: -4px; top: 12px; }
+  .frise__an { text-align: left; }
+  .frise__corps { margin-top: .5rem; }
+  .frise__fig { grid-column: 1; margin-top: 1.25rem; }
+  .frise__img { aspect-ratio: 4 / 3; }
+  .frise__item--large .frise__img { aspect-ratio: 2.2 / 1; }
+  .frise__img--planche { aspect-ratio: 4 / 3; }
+  .frise__titre { font-size: 21px; }
+  .frise__txt { font-size: 16px; }
 }
