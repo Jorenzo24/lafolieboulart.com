@@ -67,7 +67,8 @@ def build():
   </div>
 </section>
 
-<section class="section">
+<section class="section section--cadre">
+  {cadre()}
   <div class="wrap-1140">
     <div class="section__head reveal">
       <p class="eyebrow">Depuis 1872</p>
@@ -90,8 +91,7 @@ def build():
   </div>
 </section>
 
-<section class="section section--cadre">
-  {cadre()}
+<section class="section">
   <div class="wrap">
     <div class="section__head reveal">
       <h2 class="section__title section__title--lg">{lines(T(P, 17))}</h2>

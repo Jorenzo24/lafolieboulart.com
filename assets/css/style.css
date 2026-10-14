@@ -622,7 +622,7 @@ body.nav-open { overflow: hidden; }
 
 .footer__logo { text-align: center; padding-top: 50px; }
 .footer__logo img {
-  width: min(61%, 330px); margin: 20px auto; display: block;
+  width: min(52%, 270px); margin: 0 auto; display: block;
 }
 
 /* Filets blancs à 75 % de large, comme les séparateurs d'origine */
@@ -640,7 +640,7 @@ body.nav-open { overflow: hidden; }
   padding-inline: var(--gutter);
 }
 .footer__mark { text-align: center; }
-.footer__mark img { width: 39%; min-width: 70px; margin-inline: auto; }
+.footer__mark img { width: 30%; min-width: 60px; max-width: 86px; margin-inline: auto; }
 
 .footer__nav { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; justify-items: center; }
 .footer__nav a { font-family: var(--serif); font-size: 16px; font-weight: 400; }
@@ -671,10 +671,12 @@ body.nav-open { overflow: hidden; }
 }
 
 @media (max-width: 767px) {
-  .footer__logo { padding-top: 0; }
-  .footer__logo img { width: 78%; margin-top: 50px; }
+  /* padding, pas margin : la marge de l'image traversait le bloc par
+     collapsing et sortait du pied de page, d'où le logo collé en haut. */
+  .footer__logo { padding-top: 44px; }
+  .footer__logo img { width: 58%; }
   .footer__cols { grid-template-columns: 1fr; gap: 1.25rem; }
-  .footer__mark img { width: 33%; }
+  .footer__mark img { width: 24%; max-width: 78px; }
   .footer__contact { font-size: 14px; line-height: 2; }
   .footer__legal { grid-template-columns: 1fr; font-size: 12px; line-height: 2; }
   .footer__credit { font-size: 15px; }
@@ -804,12 +806,16 @@ body.nav-open { overflow: hidden; }
 /* à cheval sur le bord de l'image, comme l'original */
 .carousel__btn--prev { left: -25px; }
 .carousel__btn--next { right: -25px; }
-/* Sur mobile les flèches passent à l'intérieur du cadre : à cheval, elles
-   débordaient de 11px et provoquaient un défilement horizontal. */
-@media (max-width: 767px) {
-  .carousel__btn { width: 40px; height: 40px; }
+/* La flèche à cheval ne tient que si la galerie a atteint sa largeur maximale
+   et qu'il reste 25px de marge : au-delà de 1300px de contenu, il faut donc
+   1350px d'écran. En dessous, elles passent à l'intérieur — sans quoi elles
+   provoquent un défilement horizontal (25px à 1024, 22px à 768). */
+@media (max-width: 1349px) {
   .carousel__btn--prev { left: 8px; }
   .carousel__btn--next { right: 8px; }
+}
+@media (max-width: 767px) {
+  .carousel__btn { width: 40px; height: 40px; }
 }
 .carousel__dots { display: none; }
 
@@ -889,10 +895,18 @@ body.nav-open { overflow: hidden; }
   width: 60%; margin: 0 auto; border-radius: 50%;
   aspect-ratio: 1; object-fit: cover;
 }
-@media (max-width: 899px) { .split__col img.owners__portrait { width: 62%; max-width: 340px; } }
+@media (max-width: 899px) {
+  .split__col img.owners__portrait { width: 56%; max-width: 280px; }
+}
 /* Justifié comme le reste des blocs de texte, et centré sous 767px —
    même règle que .prose, pour éviter les rivières en colonne étroite. */
-.quote { text-align: justify; color: #000; font-family: var(--serif); font-size: 15px; line-height: 1.9; }
+.quote {
+  /* blockquote porte 1em 40px par défaut : le bloc se retrouvait 80px
+     plus étroit que les textes voisins, très visible sur mobile. */
+  margin: 0;
+  text-align: justify; color: #000;
+  font-family: var(--serif); font-size: 15px; line-height: 1.9;
+}
 @media (max-width: 767px) { .quote { text-align: center; } }
 /* Le guillemet, la phrase d'ouverture et la signature restent centrés. */
 .quote--mark::before { text-align: center; }
@@ -1415,7 +1429,7 @@ body.nav-open { overflow: hidden; }
    Les sections encadrées en sont exclues — dans un cadre, tout rentre dans
    le cadre, c'est le principe même du passe-partout. */
 @media (max-width: 767px) {
-  .section:not(.section--cadre) .split__col > img,
+  .section:not(.section--cadre) .split__col > img:not(.owners__portrait),
   .section:not(.section--cadre) .split__col > .media > img,
   .section:not(.section--cadre) .showcase-solo img {
     width: calc(100% + (var(--gutter) - 3px) * 2);
@@ -1630,9 +1644,10 @@ body.nav-open { overflow: hidden; }
 .frise__txt {
   text-align: justify;
   hyphens: auto;
-  /* Sans garde-fou la césure attaquait des mots courts — « ham-mam ».
-     Mot d'au moins 8 lettres, 4 avant la coupe et 4 après. */
-  hyphenate-limit-chars: 8 4 4;
+  /* Sans garde-fou la césure attaquait des mots courts — « ham-mam » — et,
+     plus grave, la marque : « BIAR-RITZ ». Le seuil de 10 lettres met hors
+     d'atteinte BIARRITZ (8), Delalonde et Wanamaker (9). */
+  hyphenate-limit-chars: 10 4 4;
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
 }

@@ -131,12 +131,17 @@ desktop, 19 / 17px sur mobile.
 les voulait plus présents. Ils sont à **48px** (38px entre 768 et 1024, 30px
 sous 768). Changement global, porté par `.section__title`.
 
+`.quote` est un `blockquote` : sa marge par défaut (`1em 40px`) est remise à
+zéro. Sans cela le mot des propriétaires était 80px plus étroit que les textes
+voisins.
+
 **Essai en cours : tous les textes justifiés.** Le bloc est en fin de
 `style.css`, signalé `ESSAI` — à supprimer d'un seul tenant pour revenir en
 arrière. Il est placé là à dessein : trois règles plus haut recentrent le
 texte (`.prose--center`, `.prose--lead`, et `.prose` sous 767px). La césure
-est bridée à `hyphenate-limit-chars: 8 4 4`, sans quoi elle coupait des mots
-courts — « ham-mam ».
+est bridée à `hyphenate-limit-chars: 10 4 4`, sans quoi elle coupait des mots
+courts — « ham-mam » — et, plus grave, **la marque : « BIAR-RITZ »**. Le seuil
+de 10 lettres met BIARRITZ (8), Delalonde et Wanamaker (9) hors d'atteinte.
 
 ## Encadrement de section
 
@@ -178,9 +183,19 @@ Comme `.section--paper`, le bloc encadré porte sa propre respiration basse et
 la section suivante renonce à la sienne : l'écart reste `--gap-section`.
 
 **Un cadre impose une marge — c'est son principe.** Les photos d'une section
-encadrée s'arrêtent donc au filet, là où ailleurs elles vont au bord de
-l'écran. Si le client veut des photos bord à bord dans une de ces sections,
-c'est le cadre qu'il faut retirer, pas les marges qu'il faut réduire.
+encadrée s'arrêtent au filet, là où ailleurs elles vont au bord de l'écran.
+C'est pour cette raison que **Nos Suites a été décadrée** : son carrousel et
+son listing ne pouvaient pas atteindre la largeur de SPA & Fitness et de
+Réceptions, qui ont la même nature. Le cadre est passé sur la **frise de
+l'accueil**, dont le contenu est avant tout du texte.
+
+Sections encadrées de l'accueil : la frise, L'art culinaire, L'esprit d'un
+hôtel particulier.
+
+Attention en décadrant : la flèche du carrousel est posée **à cheval** sur le
+bord (`right: -25px`). Elle ne tient que si la galerie a atteint ses 1300px et
+qu'il reste 25px de marge — soit 1350px d'écran. En dessous elle passe à
+l'intérieur, sans quoi elle déborde (25px à 1024, 22px à 768).
 
 ## Espacements
 
