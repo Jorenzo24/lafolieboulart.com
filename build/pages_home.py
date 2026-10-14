@@ -73,8 +73,10 @@ def build():
       <p class="eyebrow">Depuis 1872</p>
       <h2 class="section__title section__title--lg">Cent cinquante ans d’histoire</h2>
     </div>
-    {frise(annees=('1872', '1881', '1889', '2022'), extrait=True)}
-    <p class="frise-suite">{btn('philosophie.html#histoire', 'Toute l’histoire du château')}</p>
+    <div class="frise-apercu">
+      {frise(annees=('1872', '1881', '1889', '2015'), extrait=True)}
+      <p class="frise-suite">{btn('philosophie.html#histoire', 'Toute l’histoire du château')}</p>
+    </div>
   </div>
 </section>
 

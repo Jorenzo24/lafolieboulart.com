@@ -54,6 +54,7 @@ CHRONOLOGIE = [
     ),
     dict(
         an='1872',
+        court='L’acte d’achat est signé : soixante-trois mètres au-dessus de l’océan, des bois, un lac.',
         titre='Cinq hectares au-dessus de l’océan',
         txt='L’acte d’achat est signé. Il fallait un terrain et une situation '
             'exceptionnels : ce seront soixante-trois mètres au-dessus de '
@@ -77,6 +78,7 @@ CHRONOLOGIE = [
     ),
     dict(
         an='1881',
+        court='Des artistes de toute l’Europe, les matériaux les plus prestigieux.',
         titre='Le château est achevé',
         txt='Des artistes de toute l’Europe y sont intervenus — maître verrier, '
             'peintre, mosaïste, sculpteur — et les matériaux les plus '
@@ -88,6 +90,7 @@ CHRONOLOGIE = [
     ),
     dict(
         an='1889',
+        court='La reine Victoria est reçue au château, après bien d’autres têtes couronnées.',
         titre='La reine Victoria',
         txt='Les têtes couronnées se succèdent au château : la reine Victoria en '
             '1889, le roi de Suède Oskar II, Édouard VII, les grands-ducs russes, '
@@ -100,6 +103,7 @@ CHRONOLOGIE = [
     ),
     dict(
         an='2015',
+        court='Sous les peintures, les moquettes et les planchers, les travaux révèlent toiles, fresques, sculptures, mosaïques.',
         titre='Les trésors enfouis',
         txt='Les travaux de mise en valeur commencent. Sous les peintures, les '
             'moquettes, les ciments et les planchers, ils révèlent toiles, '
@@ -110,6 +114,7 @@ CHRONOLOGIE = [
     ),
     dict(
         an='2022',
+        court='Une technologie de pointe entièrement invisible, primée en Europe.',
         titre='Une technologie invisible',
         txt='Le lustre originel retrouvé, la demeure est dotée d’une technologie '
             'de pointe entièrement invisible. Elle reçoit le 1er prix '
@@ -121,21 +126,29 @@ CHRONOLOGIE = [
 ]
 
 
-def _entree(d, i):
+def _entree(d, i, extrait=False):
     """Une entrée : la date, le corps, et la figure quand il y en a une."""
     cls = 'frise__item reveal'
     if i % 2:
         cls += ' reveal-d1'
-    if d.get('large'):
+    if extrait:
+        # L'aperçu met tout en vignette : les pleines largeurs faisaient de
+        # l'accueil une page d'histoire.
+        if not d.get('img'):
+            cls += ' frise__item--nu'
+    elif d.get('large'):
         cls += ' frise__item--large'
     elif d.get('planche'):
         cls += ' frise__item--planche'
     elif not d.get('img'):
         cls += ' frise__item--nu'
 
+    txt = d['court'] if extrait and d.get('court') else d['txt']
+
     fig = ''
     if d.get('img'):
-        cls_img = 'frise__img frise__img--planche' if d.get('planche') else 'frise__img'
+        planche = d.get('planche') and not extrait
+        cls_img = 'frise__img frise__img--planche' if planche else 'frise__img'
         img = picture(img_src(d['img']), d['alt'], cls=cls_img, lightbox='frise')
         legende = ''
         if d.get('legende'):
@@ -147,7 +160,7 @@ def _entree(d, i):
             '      <p class="frise__an">' + d['an'] + '</p>\n'
             '      <div class="frise__corps">\n'
             '        <h3 class="frise__titre">' + e(d['titre']) + '</h3>\n'
-            '        <p class="frise__txt">' + e(d['txt']) + '</p>\n'
+            '        <p class="frise__txt">' + e(txt) + '</p>\n'
             '      </div>\n'
             + fig +
             '    </li>')
@@ -167,5 +180,5 @@ def frise(annees=None, extrait=False):
 
     cls = 'frise frise--extrait' if extrait else 'frise'
     return ('<ol class="' + cls + '">\n'
-            + '\n'.join(_entree(d, i) for i, d in enumerate(entrees))
+            + '\n'.join(_entree(d, i, extrait) for i, d in enumerate(entrees))
             + '\n  </ol>')

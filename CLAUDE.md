@@ -52,9 +52,30 @@ fur et à mesure, c'est leur seule trace :
 
 `build/chrono.py` tient la liste `CHRONOLOGIE` et la fonction `frise()` :
 
-- accueil — extrait de quatre dates (1872, 1881, 1889, 2022) suivi du bouton
+- accueil — aperçu de quatre dates (1872, 1881, 1889, 2015) suivi du bouton
   vers `philosophie.html#histoire` ;
 - philosophie — les neuf dates, en ouverture de `#histoire`.
+
+**L'aperçu est un module, pas la page d'histoire.** Il doit rester sous les
+900px à toutes les largeurs — il était monté à 1761px sur desktop et 1685px
+sur mobile avant d'être repris. Ce qui le tient :
+
+- un champ `court` dans `CHRONOLOGIE`, utilisé à la place de `txt` ;
+- toutes les entrées en vignette : pas de pleine largeur en aperçu ;
+- texte et vignette centrés l'un en face de l'autre, sinon le texte reste
+  collé en haut et laisse un grand blanc sous lui ;
+- une mise en page par palier — vignette à droite partout, y compris entre
+  768 et 1099px où le reste de la frise passe l'image sous le texte, et sur
+  mobile où elle se range en vignette carrée à côté du texte.
+
+Mesurer après chaque retouche : à 1000px de large, laisser l'aperçu suivre
+la règle générale le faisait repasser à 2110px.
+
+**L'aperçu s'achève sur un dégradé** qui efface la dernière entrée et court
+jusque sous le bouton, resté net par un `z-index`. Sans lui, on croit la
+frise terminée. C'est pour cela que l'aperçu s'arrête à **2015** et non à
+2022 : la dernière entrée est celle que le dégradé rend illisible, et le
+prix européen n'est pas ce qu'on veut effacer.
 
 Chaque entrée porte une date, un titre, un texte et le plus souvent une
 photographie légendée. Les faits sont des **condensés** de `content.json` —

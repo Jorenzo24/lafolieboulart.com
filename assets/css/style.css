@@ -1461,7 +1461,7 @@ body.nav-open { overflow: hidden; }
 /* la photographie */
 .frise__fig { margin: 0; overflow: hidden; }
 .frise__img {
-  display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
   transition: transform .6s var(--ease);
 }
 .frise__fig > .frise__img { cursor: zoom-in; }
@@ -1492,6 +1492,32 @@ body.nav-open { overflow: hidden; }
 /* Entrée sans photographie. */
 .frise__item--nu { grid-template-columns: 160px minmax(0, 1fr); }
 
+/* ----- Aperçu de l'accueil -------------------------------------------------
+   Ce n'est pas la page d'histoire : vignettes réduites, textes courts, tout
+   en une seule mise en page. Le bloc s'estompe vers le bas et le dégradé
+   court jusque sous le bouton — sans quoi on croit la frise terminée. */
+.frise--extrait { --col-img: 230px; }
+/* Texte et vignette se font face, centrés : sinon le texte reste collé en
+   haut et laisse un grand blanc sous lui. */
+.frise--extrait .frise__item { align-items: center; }
+.frise--extrait .frise__item::before { top: 50%; margin-top: -4px; }
+.frise--extrait .frise__item { padding-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+.frise--extrait .frise__titre { font-size: 22px; }
+.frise--extrait .frise__txt {
+  margin-top: .6rem; font-size: 16px;
+  max-width: 44ch;      /* deux ou trois lignes : la vignette ne domine plus */
+}
+.frise--extrait .frise__legende { display: none; }
+
+.frise-apercu { position: relative; }
+.frise-apercu::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 340px; pointer-events: none;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0), rgba(255,255,255,.55) 34%, rgba(255,255,255,.94) 62%, #fff 78%);
+}
+.frise-apercu .frise-suite { position: relative; z-index: 2; }
+
 .frise-suite { text-align: center; margin: clamp(2rem, 4vw, 3rem) 0 0; }
 
 /* Sous 1100px la colonne image devient trop étroite : elle passe sous le
@@ -1503,6 +1529,15 @@ body.nav-open { overflow: hidden; }
   .frise { --axe: 164px; }
   .frise__fig { grid-column: 2; margin-top: 1.5rem; }
   .frise__img { aspect-ratio: 2 / 1; }
+
+  /* L'aperçu garde sa vignette à droite : passée sous le texte, elle
+     doublait la hauteur du module (2110px à 1000px de large). */
+  .frise--extrait .frise__item {
+    grid-template-columns: 140px minmax(0, 1fr) 190px;
+    column-gap: 2rem;
+  }
+  .frise--extrait .frise__fig { grid-column: 3; margin-top: 0; }
+  .frise--extrait .frise__img { aspect-ratio: 3 / 2; }
 }
 
 /* Mobile : l'axe revient au bord, tout s'empile sous la date. */
@@ -1519,9 +1554,29 @@ body.nav-open { overflow: hidden; }
   .frise__an { text-align: left; }
   .frise__corps { margin-top: .5rem; }
   .frise__fig { grid-column: 1; margin-top: 1.25rem; }
-  .frise__img { aspect-ratio: 4 / 3; }
+  .frise__img { aspect-ratio: 3 / 2; }
   .frise__item--large .frise__img { aspect-ratio: 2.2 / 1; }
   .frise__img--planche { aspect-ratio: 4 / 3; }
+
+  /* L'aperçu ne s'empile pas : la vignette se range à droite du texte,
+     sinon les quatre entrées font 1700px pour un simple avant-goût. */
+  .frise--extrait .frise__item {
+    grid-template-columns: minmax(0, 1fr) 104px;
+    column-gap: 1rem;
+    padding-bottom: 1.5rem;
+  }
+  .frise--extrait .frise__an,
+  .frise--extrait .frise__corps { grid-column: 1; }
+  .frise--extrait .frise__fig {
+    grid-column: 2; grid-row: 1 / span 2;
+    align-self: center; margin-top: 0;
+  }
+  .frise--extrait .frise__img { aspect-ratio: 1 / 1; }
+  .frise--extrait .frise__an { font-size: 1.75rem; }
+  /* la pastille revient en face de la date, pas au milieu de l'entrée */
+  .frise--extrait .frise__item::before { top: 12px; margin-top: 0; }
+  .frise--extrait .frise__titre { font-size: 18px; }
+  .frise--extrait .frise__txt { font-size: 15px; margin-top: .4rem; }
   .frise__titre { font-size: 21px; }
   .frise__txt { font-size: 16px; }
 }
