@@ -152,6 +152,9 @@ h1, h2, h3, h4 {
 .btn:hover { color: var(--white); border-color: var(--ink); }
 .btn:hover::after { transform: scaleX(1); transform-origin: left; }
 .btn { isolation: isolate; }
+.btn--fleche span { display: inline-flex; align-items: center; gap: .65rem; }
+.btn__fleche { width: 22px; height: 10px; flex: none; transition: transform .4s var(--ease); }
+.btn--fleche:hover .btn__fleche { transform: translateX(4px); }
 .btn--light { color: var(--white); background: transparent; border-color: rgba(255,255,255,.75); }
 .btn--light:hover { color: var(--ink); border-color: var(--white); }
 .btn--light::after { background: var(--white); }
@@ -405,21 +408,22 @@ body.nav-open { overflow: hidden; }
 
 .section__head { text-align: center; max-width: 62ch; margin-inline: auto; margin-bottom: clamp(2rem, 4vw, 3.25rem); }
 
-/* Titres de section — repris de l'original : Canela 40/45, or #BC9744 */
+/* Titres de section. L'original tenait en Canela 40/45 ; le client les
+   voulait plus présents, d'où 48px. */
 .section__title {
   font-family: var(--serif); font-weight: 300;
-  font-size: 40px; line-height: 45px;
+  font-size: 48px; line-height: 1.14;
   color: var(--gold);
 }
-.section__title--lg { font-size: 40px; }
+.section__title--lg { font-size: 48px; }
 .section__title--ink { color: var(--ink); }
 .section__title--start { text-align: left; }
 .section__title--end { text-align: right; }
 @media (max-width: 1024px) and (min-width: 768px) {
-  .section__title, .section__title--lg { font-size: 32px; line-height: 38px; }
+  .section__title, .section__title--lg { font-size: 38px; line-height: 1.16; }
 }
 @media (max-width: 767px) {
-  .section__title, .section__title--lg { font-size: 25px; line-height: 1.5; text-align: center; }
+  .section__title, .section__title--lg { font-size: 30px; line-height: 1.24; text-align: center; }
 }
 
 .prose { color: var(--ink-soft); text-align: justify; }
@@ -428,6 +432,8 @@ body.nav-open { overflow: hidden; }
 .prose--center { text-align: center; max-width: 72ch; margin-inline: auto; }
 /* Chapeau du héros : Canela 25/40, noir, centré (original) */
 .prose--lead { font-size: 25px; line-height: 40px; color: #000; text-align: center; }
+
+
 @media (max-width: 767px) {
   .prose { text-align: center; font-size: 17px; line-height: 1.85; }
   .prose--lead { font-size: 19px; line-height: 1.75; }
@@ -1350,11 +1356,23 @@ body.nav-open { overflow: hidden; }
    à la sienne : l'écart entre sections reste --gap-section.
    ========================================================================== */
 .section--cadre {
+  /* Trois mesures, et tout en découle. Le filet entre dans le rythme des
+     sections : --gap-section le sépare du contenu précédent, comme n'importe
+     quelle autre section. L'air intérieur, lui, est redéfini sur --gutter,
+     si bien que les wraps rentrent sous le filet sans réglage séparé. */
+  --cadre-marge: 32px;    /* du bord de l'écran au filet */
+  --cadre-air-x: 20px;    /* du filet au contenu, à gauche et à droite */
+  --cadre-air-y: 64px;    /* du filet au contenu, en haut et en bas */
+  --gutter: calc(var(--cadre-marge) + var(--cadre-air-x));
+
   position: relative;
-  padding-bottom: var(--gap-section);
+  padding-top: calc(var(--gap-section) + var(--cadre-air-y));
+  padding-bottom: calc(var(--gap-section) + var(--cadre-air-y));
 }
 .section--cadre::before {
-  content: ''; position: absolute; inset: 40px 32px;
+  content: ''; position: absolute;
+  top: var(--gap-section); bottom: var(--gap-section);
+  left: var(--cadre-marge); right: var(--cadre-marge);
   border: 1px solid rgba(197,149,46,.4);
   pointer-events: none;
 }
@@ -1363,44 +1381,61 @@ body.nav-open { overflow: hidden; }
 .section--cadre + .banner,
 .section--paper + .banner { margin-top: 0; }
 
-/* Le bloc galerie va bord à bord ; encadré, il doit rentrer sous le filet.
-   Le listing des suites reçoit le même retrait, pour que les bords des images
-   s'alignent d'un bloc à l'autre. */
+/* Galerie et listing des suites partagent exactement la même boîte, pour que
+   les bords des images tombent les uns sur les autres à toute largeur. */
+.showcase,
+.suites-after { max-width: 1300px; margin-inline: auto; padding-inline: 3px; }
 .section--cadre .showcase,
-.section--cadre .suites-after { padding-inline: 52px; }
-@media (max-width: 767px) {
-  .section--cadre .showcase,
-  .section--cadre .suites-after { padding-inline: 30px; }
-}
+.section--cadre .suites-after { padding-inline: var(--gutter); }
 /* Les vues du carrousel ont 2,5px de gouttière : on la compense pour que la
    première image tombe exactement sur le bord des autres blocs. */
 .carousel:not(.carousel--solo) { margin-inline: -2.5px; }
 
+/* Les ornements se calent sur le filet et débordent un peu vers l'extérieur. */
 .cadre__angle { position: absolute; width: 104px; z-index: 2; pointer-events: none; }
 .cadre__angle img { width: 100%; display: block; }
-.cadre__angle--bg { bottom: 24px; left: 16px; }
-.cadre__angle--hg { top: 24px; left: 16px; transform: scaleY(-1); }
-.cadre__angle--bd { bottom: 24px; right: 16px; transform: scaleX(-1); }
-.cadre__angle--hd { top: 24px; right: 16px; transform: scale(-1, -1); }
+.cadre__angle--bg, .cadre__angle--bd { bottom: calc(var(--gap-section) - 16px); }
+.cadre__angle--hg, .cadre__angle--hd { top: calc(var(--gap-section) - 16px); }
+.cadre__angle--bg, .cadre__angle--hg { left: calc(var(--cadre-marge) - 16px); }
+.cadre__angle--bd, .cadre__angle--hd { right: calc(var(--cadre-marge) - 16px); }
+.cadre__angle--hg { transform: scaleY(-1); }
+.cadre__angle--bd { transform: scaleX(-1); }
+.cadre__angle--hd { transform: scale(-1, -1); }
 
 .cadre__palmette {
   position: absolute; left: 50%; width: 58px; z-index: 3;
   background: #fff; padding: 0 14px; pointer-events: none;
 }
 .cadre__palmette img { width: 100%; display: block; }
-.cadre__palmette--haut { top: 40px; transform: translate(-50%, -50%); }
-.cadre__palmette--bas { bottom: 40px; transform: translate(-50%, 50%) rotate(180deg); }
+.cadre__palmette--haut { top: var(--gap-section); transform: translate(-50%, -50%); }
+.cadre__palmette--bas { bottom: var(--gap-section); transform: translate(-50%, 50%) rotate(180deg); }
+
+/* Sur mobile, une photo de bloc éditorial va au bord comme les galeries :
+   sinon la même page montre des images à 3px du bord et d'autres à 20px.
+   Les sections encadrées en sont exclues — dans un cadre, tout rentre dans
+   le cadre, c'est le principe même du passe-partout. */
+@media (max-width: 767px) {
+  .section:not(.section--cadre) .split__col > img,
+  .section:not(.section--cadre) .split__col > .media > img,
+  .section:not(.section--cadre) .showcase-solo img {
+    width: calc(100% + (var(--gutter) - 3px) * 2);
+    margin-inline: calc((var(--gutter) - 3px) * -1);
+    max-width: none;
+  }
+}
 
 @media (max-width: 767px) {
-  .section--cadre::before { inset: 30px 18px; }
+  .section--cadre {
+    --cadre-marge: 12px;
+    --cadre-air-x: 22px;
+    --cadre-air-y: 34px;
+  }
   .cadre__angle { width: 68px; }
-  .cadre__angle--bg, .cadre__angle--bd { bottom: 16px; }
-  .cadre__angle--hg, .cadre__angle--hd { top: 16px; }
-  .cadre__angle--bg, .cadre__angle--hg { left: 10px; }
-  .cadre__angle--bd, .cadre__angle--hd { right: 10px; }
+  .cadre__angle--bg, .cadre__angle--bd { bottom: calc(var(--gap-section) - 12px); }
+  .cadre__angle--hg, .cadre__angle--hd { top: calc(var(--gap-section) - 12px); }
+  .cadre__angle--bg, .cadre__angle--hg { left: calc(var(--cadre-marge) - 8px); }
+  .cadre__angle--bd, .cadre__angle--hd { right: calc(var(--cadre-marge) - 8px); }
   .cadre__palmette { width: 44px; }
-  .cadre__palmette--haut { top: 30px; }
-  .cadre__palmette--bas { bottom: 30px; }
 }
 
 /* ==========================================================================
@@ -1579,4 +1614,32 @@ body.nav-open { overflow: hidden; }
   .frise--extrait .frise__txt { font-size: 15px; margin-top: .4rem; }
   .frise__titre { font-size: 21px; }
   .frise__txt { font-size: 16px; }
+}
+
+/* ==========================================================================
+   ESSAI — justification de tous les textes, demandée par le client.
+   Placé en fin de feuille à dessein : plusieurs règles plus haut recentrent
+   le texte (.prose--center, .prose--lead, et .prose sous 767px). Sans cette
+   position, l'essai ne portait que sur une partie de la page.
+   Pour revenir en arrière : supprimer ce bloc entier, rien n'en dépend.
+   ========================================================================== */
+.prose,
+.prose--center,
+.prose--lead,
+.quote,
+.frise__txt {
+  text-align: justify;
+  hyphens: auto;
+  /* Sans garde-fou la césure attaquait des mots courts — « ham-mam ».
+     Mot d'au moins 8 lettres, 4 avant la coupe et 4 après. */
+  hyphenate-limit-chars: 8 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
+}
+@media (max-width: 767px) {
+  .prose,
+  .prose--center,
+  .prose--lead,
+  .quote,
+  .frise__txt { text-align: justify; }
 }

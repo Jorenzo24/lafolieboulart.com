@@ -124,8 +124,19 @@ compte de la casse.
 | Texte | `#202020`, `#5c5c5c` |
 | Typographie | Canela (titres et corps), Crimson Text en secours |
 
-Tailles reprises de l'original : desktop 40px (titres) / 25px (chapeau) /
-17px (corps). Sur mobile : 27 / 19 / 17px.
+Corps et chapeau repris de l'original : 25px (chapeau) / 17px (corps) sur
+desktop, 19 / 17px sur mobile.
+
+**Les titres de section s'en écartent** : l'original tenait en 40px, le client
+les voulait plus présents. Ils sont à **48px** (38px entre 768 et 1024, 30px
+sous 768). Changement global, porté par `.section__title`.
+
+**Essai en cours : tous les textes justifiés.** Le bloc est en fin de
+`style.css`, signalé `ESSAI` — à supprimer d'un seul tenant pour revenir en
+arrière. Il est placé là à dessein : trois règles plus haut recentrent le
+texte (`.prose--center`, `.prose--lead`, et `.prose` sous 767px). La césure
+est bridée à `hyphenate-limit-chars: 8 4 4`, sans quoi elle coupait des mots
+courts — « ham-mam ».
 
 ## Encadrement de section
 
@@ -138,8 +149,38 @@ L'ornement d'angle (`ornement-angle.webp`) a été détouré d'un motif fourni p
 le client, puis recoloré dans l'or de la charte. La palmette
 (`ornement-palmette.webp`) est découpée dans le monogramme.
 
+**Trois mesures, et tout en découle** :
+
+| Token | Rôle |
+| --- | --- |
+| `--cadre-marge` | du bord de l'écran au filet (32px, 12px sous 768px) |
+| `--cadre-air-x` | du filet au contenu, à gauche et à droite (20 / 22px) |
+| `--cadre-air-y` | du filet au contenu, en haut et en bas (64 / 34px) |
+
+**C'est le filet qui entre dans le rythme des sections**, pas la boîte :
+`--gap-section` le sépare du contenu précédent, comme pour n'importe quelle
+autre section. Le padding vertical vaut donc `--gap-section + --cadre-air-y`,
+et le filet se pose à `--gap-section` des bords. Avant cette correction le
+filet arrivait à 40px du contenu précédent : la section encadrée semblait
+collée à la précédente.
+
+**`--gutter` est redéfini** à `--cadre-marge + --cadre-air-x` dans la section
+encadrée. Les wraps rentrent donc sous le filet sans réglage séparé — et sur
+mobile ils y rentrent vraiment : le texte débordait du cadre (filet à 18→372,
+texte à 20→370).
+
+`.showcase` et `.suites-after` partagent exactement la même boîte
+(`max-width: 1300px`, `padding-inline: 3px`, remplacé par `--gutter` sous
+cadre). **Ne pas remettre `.suites-after` dans un `wrap-*`** : c'est ce qui
+décalait le listing de 20px par rapport au carrousel sur mobile.
+
 Comme `.section--paper`, le bloc encadré porte sa propre respiration basse et
 la section suivante renonce à la sienne : l'écart reste `--gap-section`.
+
+**Un cadre impose une marge — c'est son principe.** Les photos d'une section
+encadrée s'arrêtent donc au filet, là où ailleurs elles vont au bord de
+l'écran. Si le client veut des photos bord à bord dans une de ces sections,
+c'est le cadre qu'il faut retirer, pas les marges qu'il faut réduire.
 
 ## Espacements
 

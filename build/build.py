@@ -333,9 +333,16 @@ def page(filename, title, description, body, current, og_image=None, extra_js=No
 # --------------------------------------------------------------------------
 # Briques de mise en page
 # --------------------------------------------------------------------------
-def btn(href, label, light=False, solid=False):
+def btn(href, label, light=False, solid=False, fleche=False):
     cls = 'btn' + (' btn--light' if light else '') + (' btn--solid' if solid else '')
-    return f'<a class="{cls}" href="{href}"><span>{e(label)}</span></a>'
+    if fleche:
+        cls += ' btn--fleche'
+    # La flèche est dessinée dans le bouton, pas chargée : un trait de 1px,
+    # du même poids que les filets de la charte.
+    f = ('<svg class="btn__fleche" viewBox="0 0 22 10" aria-hidden="true" '
+         'fill="none" stroke="currentColor" stroke-width="1">'
+         '<path d="M0 5h20M16 1l4 4-4 4"/></svg>') if fleche else ''
+    return f'<a class="{cls}" href="{href}"><span>{e(label)}{f}</span></a>'
 
 
 def rule(horizontal=False, left=False):

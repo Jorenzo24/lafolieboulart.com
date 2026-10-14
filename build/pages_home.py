@@ -75,7 +75,7 @@ def build():
     </div>
     <div class="frise-apercu">
       {frise(annees=('1872', '1881', '1889', '2015'), extrait=True)}
-      <p class="frise-suite">{btn('philosophie.html#histoire', 'Toute l’histoire du château')}</p>
+      <p class="frise-suite">{btn('philosophie.html#histoire', 'Toute l’histoire du château', fleche=True)}</p>
     </div>
   </div>
 </section>
@@ -102,7 +102,7 @@ def build():
   </div>
   {showcase(suites_2, None, suites_carousel, carousel_class='only-desktop',
             mobile_carousel=suites_2 + suites_carousel)}
-  <div class="wrap-1300 suites-after">
+  <div class="suites-after">
     {suites_named(btn('suites.html', 'Découvrir nos suites'))}
   </div>
 </section>
@@ -130,7 +130,7 @@ def build():
 
 <section class="section section--cadre">
   {cadre()}
-  <div class="wrap-1140">
+  <div class="wrap-1300">
     <div class="duo-cross">
       <div class="duo-cross__col">
         <div class="duo-cross__a duo-cross__txt reveal">
